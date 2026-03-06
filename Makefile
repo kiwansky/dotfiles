@@ -76,7 +76,7 @@ aur:
 	PKGS=$$(echo "$$PKGS" | tr ' ' '\n' | sed '/^$$/d' | sort -u | tr '\n' ' '); \
 	if [ -n "$$PKGS" ]; then \
 		echo "Installing AUR packages: $$PKGS"; \
-		paru -S --needed $$PKGS; \
+		paru -S --needed --skipreview $$PKGS; \
 	else \
 		echo "No AUR packages to install."; \
 	fi
