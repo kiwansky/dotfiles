@@ -78,6 +78,25 @@ cd ~/dotfiles
 make
 ```
 
+## Manual Setup Steps
+
+Some applications require manual configuration after installation.
+
+### 1Password
+
+1. Login to 1Password Desktop
+2. Go to Settings > Developer
+3. Enable the SSH agent
+
+### Wallpaper Engine
+
+1. Login to Steam
+2. Install Wallpaper Engine
+3. Open Dank Shell Settings
+4. Navigate to Plugins
+5. Enable 3rd Party Plugins
+6. Install the Linux Wallpaper Engine plugin
+
 ## Adding a New Host
 
 1. Create a directory named after the machine's hostname (output of `cat /etc/hostname`).
