@@ -6,7 +6,7 @@ AUTH_LINE="auth       optional     pam_gnome_keyring.so"
 SESSION_LINE="session    optional     pam_gnome_keyring.so auto_start"
 
 # Add pam_gnome_keyring auth entry after the last existing auth line
-if ! grep -q 'pam_gnome_keyring.so' "$PAM_FILE" 2>/dev/null; then
+if ! grep -q 'auth.*pam_gnome_keyring.so' "$PAM_FILE" 2>/dev/null; then
     # Find the last auth line number and insert after it
     last_auth=$(grep -n '^auth' "$PAM_FILE" | tail -1 | cut -d: -f1)
     sudo sed -i "${last_auth}a\\${AUTH_LINE}" "$PAM_FILE"
