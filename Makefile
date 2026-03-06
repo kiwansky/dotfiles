@@ -59,7 +59,7 @@ pkgs:
 	PKGS=$$(echo "$$PKGS" | tr ' ' '\n' | sed '/^$$/d' | sort -u | tr '\n' ' '); \
 	if [ -n "$$PKGS" ]; then \
 		echo "Installing packages: $$PKGS"; \
-		sudo pacman -S --needed $$PKGS; \
+		sudo pacman -S --needed --noconfirm $$PKGS; \
 	else \
 		echo "No packages to install."; \
 	fi
