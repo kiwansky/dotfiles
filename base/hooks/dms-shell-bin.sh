@@ -5,4 +5,4 @@ set -euo pipefail
 systemctl --user enable dms
 
 # Set the profile image
-dms setImage "$HOME/Pictures/profile.jpg"
+dms ipc call profile setImage "$HOME/Pictures/profile.jpg"
