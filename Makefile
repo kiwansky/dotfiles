@@ -4,10 +4,25 @@
 USER := $(shell whoami)
 HOST := $(shell cat /etc/hostname)
 
-.PHONY: all pkgs aur cfg hooks
+.PHONY: all deps pkgs aur cfg hooks
 
 # Default target: run all deployment steps in order.
-all: pkgs aur cfg hooks
+all: deps pkgs aur cfg hooks
+
+# --------------------------------------------------------------------------
+# deps — Install required dependencies (paru) from the AUR manually.
+# Clones, builds, installs, and cleans up.
+# --------------------------------------------------------------------------
+deps:
+	@if ! command -v paru >/dev/null 2>&1; then \
+		echo "Installing paru..."; \
+		git clone https://aur.archlinux.org/paru.git /tmp/paru-build; \
+		cd /tmp/paru-build && makepkg -sirc --noconfirm; \
+		rm -rf /tmp/paru-build; \
+		echo "paru installed."; \
+	else \
+		echo "paru already installed."; \
+	fi
 
 # --------------------------------------------------------------------------
 # pkgs — Install official repo packages via pacman.
