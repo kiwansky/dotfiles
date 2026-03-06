@@ -13,5 +13,8 @@ for entry in /boot/loader/entries/*.conf; do
     fi
 done
 
+# Set boot loader timeout to 0 for seamless boot
+sudo sed -i 's/^timeout .*/timeout 0/' /boot/loader/loader.conf
+
 # Regenerate initramfs
 sudo mkinitcpio --allpresets
