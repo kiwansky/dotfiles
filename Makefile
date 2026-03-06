@@ -14,7 +14,6 @@ all: deps pkgs aur cfg hooks
 # Clones, builds, installs, and cleans up.
 # --------------------------------------------------------------------------
 deps:
-	@sudo pacman -S --needed --noconfirm git
 	@if ! command -v paru >/dev/null 2>&1; then \
 		echo "Installing paru..."; \
 		git clone https://aur.archlinux.org/paru.git /tmp/paru-build; \
