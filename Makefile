@@ -4,14 +4,14 @@
 USER := $(shell whoami)
 HOST := $(shell cat /etc/hostname)
 
-.PHONY: all deps pkgs aur cfg hooks
+.PHONY: all deps providers pkgs aur cfg hooks
 
 # Default target: run all deployment steps in order.
 # Prompts for sudo once, then keeps credentials alive in the background.
 all:
 	@sudo -v
 	@while true; do sudo -n true; sleep 60; done 2>/dev/null &
-	@$(MAKE) deps pkgs aur cfg hooks
+	@$(MAKE) deps providers pkgs aur cfg hooks
 	@sudo -k
 
 # --------------------------------------------------------------------------
@@ -28,6 +28,23 @@ deps:
 		echo "paru installed."; \
 	else \
 		echo "paru already installed."; \
+	fi
+
+# --------------------------------------------------------------------------
+# providers — Pre-install preferred dependency providers to avoid prompts.
+# Runs before pkgs so pacman won't ask the user to choose between alternatives.
+# --------------------------------------------------------------------------
+providers:
+	@PKGS=""; \
+	for f in base/providers $(HOST)/providers; do \
+		[ -f "$$f" ] && PKGS="$$PKGS $$(cat "$$f")"; \
+	done; \
+	PKGS=$$(echo "$$PKGS" | tr ' ' '\n' | sed '/^$$/d' | sort -u | tr '\n' ' '); \
+	if [ -n "$$PKGS" ]; then \
+		echo "Installing providers: $$PKGS"; \
+		sudo pacman -S --needed --noconfirm $$PKGS; \
+	else \
+		echo "No providers to install."; \
 	fi
 
 # --------------------------------------------------------------------------
