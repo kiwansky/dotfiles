@@ -7,7 +7,12 @@ HOST := $(shell cat /etc/hostname)
 .PHONY: all deps pkgs aur cfg hooks
 
 # Default target: run all deployment steps in order.
-all: deps pkgs aur cfg hooks
+# Prompts for sudo once, then keeps credentials alive in the background.
+all:
+	@sudo -v
+	@while true; do sudo -n true; sleep 60; done 2>/dev/null &
+	@$(MAKE) deps pkgs aur cfg hooks
+	@sudo -k
 
 # --------------------------------------------------------------------------
 # deps — Install required dependencies (paru) from the AUR manually.
