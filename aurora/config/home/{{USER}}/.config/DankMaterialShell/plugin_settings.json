@@ -1,0 +1,15 @@
+{
+  "linuxWallpaperEngine": {
+    "enabled": true,
+    "monitorPlaylists": {},
+    "monitorScenes": {
+      "DP-2": "3323598007",
+      "DP-1": "3323598007",
+      "HDMI-A-1": "3323598007"
+    },
+    "generateStaticWallpaper": true
+  },
+  "developerUtilities": {
+    "enabled": true
+  }
+}
