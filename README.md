@@ -44,10 +44,6 @@ dotfiles/
 
 `packages` and `aur-packages` are plain text files with one package name per line. Packages from both layers are combined and deduplicated before installation.
 
-### Providers
-
-`providers` is a plain text file (one package per line) that lists preferred dependency providers. Some packages prompt the user to choose between alternative dependencies (e.g. fonts, `jack` vs `jack2`, AMD vs NVIDIA). By listing the preferred choice in `providers`, it gets installed first so pacman won't prompt.
-
 ### Configuration
 
 The `config/` directory mirrors the root filesystem (`/`). Files are deployed to their corresponding absolute paths:
@@ -69,7 +65,6 @@ Hook scripts live in `hooks/` and are named `<package-name>.sh`. They run uncond
 |---|---|
 | `make` | Runs all targets in order: deps, pkgs, aur, cfg, hooks |
 | `make deps` | Initializes git submodules and installs paru from the AUR |
-| `make providers` | Pre-installs preferred dependency providers to avoid prompts |
 | `make pkgs` | Installs official repo packages via `pacman` |
 | `make aur` | Installs AUR packages via `paru` |
 | `make cfg` | Deploys configuration files to the filesystem |
