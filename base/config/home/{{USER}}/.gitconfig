@@ -1,0 +1,22 @@
+[user]
+	name = Keven - Yannic Iwansky
+	email = keven.iwansky@gmail.com
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP8dcMAIALoHhB6Q4vFOtwxOtsqMCxtuUKSSOTOPCvDt
+[init]
+	defaultBranch = main
+[core]
+	editor = code --wait
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
+[pull]
+	rebase = true
+[gpg "ssh"]
+	program = /opt/1Password/op-ssh-sign
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential

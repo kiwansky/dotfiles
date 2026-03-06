@@ -1,0 +1,28 @@
+{
+  "linuxWallpaperEngine": {
+    "enabled": true,
+    "monitorPlaylists": {},
+    "monitorScenes": {
+      "DP-2": "3323598007",
+      "DP-1": "3323598007",
+      "HDMI-A-1": "3323598007"
+    },
+    "generateStaticWallpaper": true
+  },
+  "developerUtilities": {
+    "enabled": true
+  },
+  "dankKDEConnect": {
+    "enabled": true
+  },
+  "sathiAi": {
+    "enabled": true,
+    "anthropicApiKey": "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",
+    "persistChatHistory": true,
+    "showMessageAlerts": true,
+    "aiModel": "claude-haiku-4-5-20251001",
+    "windowWidth": 636.02734375,
+    "windowHeight": 400,
+    "chatHistory": "[{\"role\":\"user\",\"content\":\"What is eza for a Linux CLI tool?\"}]"
+  }
+}
