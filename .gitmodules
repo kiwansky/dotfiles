@@ -1,0 +1,9 @@
+[submodule "base/config/home/{{USER}}/.config/DankMaterialShell/plugins/.repos/0026f1eba8dedaec"]
+	path = base/config/home/{{USER}}/.config/DankMaterialShell/plugins/.repos/0026f1eba8dedaec
+	url = https://github.com/AvengeMedia/dms-plugins
+[submodule "base/config/home/{{USER}}/.config/DankMaterialShell/plugins/developerUtilities"]
+	path = base/config/home/{{USER}}/.config/DankMaterialShell/plugins/developerUtilities
+	url = https://github.com/xxyangyoulin/dms-plugin-developer-utilities
+[submodule "base/config/home/{{USER}}/.config/DankMaterialShell/plugins/linuxWallpaperEngine"]
+	path = base/config/home/{{USER}}/.config/DankMaterialShell/plugins/linuxWallpaperEngine
+	url = https://github.com/sgtaziz/dms-wallpaperengine
