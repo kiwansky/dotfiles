@@ -61,7 +61,7 @@ cfg:
 			TARGET=$$(echo "$$TARGET" | sed 's|{{USER}}|$(USER)|g'); \
 			DIR=$$(dirname "$$TARGET"); \
 			case "$$TARGET" in \
-				/home/$(USER)*) \
+				/home/$(USER)/*) \
 					mkdir -p "$$DIR"; \
 					cp "$$src" "$$TARGET"; \
 					echo "$$src -> $$TARGET"; \
@@ -91,7 +91,7 @@ hooks:
 			HOOK="$$layer/hooks/$$pkg.sh"; \
 			if [ -f "$$HOOK" ]; then \
 				echo "Running hook: $$HOOK"; \
-				bash "$$HOOK"; \
+				bash "$$HOOK" || echo "WARNING: $$HOOK failed with exit code $$?"; \
 			fi; \
 		done; \
 	done
