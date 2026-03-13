@@ -1,0 +1,13 @@
+{
+  "linuxWallpaperEngine": {
+    "enabled": true,
+    "monitorPlaylists": {},
+    "monitorScenes": {
+      "eDP-1": "3323598007"
+    },
+    "generateStaticWallpaper": true
+  },
+  "developerUtilities": {
+    "enabled": true
+  }
+}
