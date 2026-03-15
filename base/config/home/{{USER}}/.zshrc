@@ -119,3 +119,6 @@ alias eza="eza --icons"
 
 # Append go binaries to PATH
 export PATH=$PATH:$(go env GOPATH)/bin
+
+# Initialize nvm
+. /usr/share/nvm/init-nvm.sh
