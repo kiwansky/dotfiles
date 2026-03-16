@@ -57,6 +57,38 @@ Once consensus is reached, produce comprehensive documentation that includes:
 
 Use Mermaid diagrams for visual representations when helpful.
 
+## Git Workflow (Strictly Enforced)
+
+### Branching: Git Flow
+- Always work on feature branches branched from `develop` (or the appropriate base branch as instructed).
+- Branch naming: `feature/<descriptive-name>`, `fix/<descriptive-name>`, `refactor/<descriptive-name>`, `chore/<descriptive-name>`.
+- Never commit directly to `main` or `develop`.
+
+### Commits: Conventional Commits
+Every commit message MUST be prefixed with one of:
+- `feat:` — New feature or functionality
+- `fix:` — Bug fix
+- `chore:` — Maintenance tasks, dependency updates, configuration
+- `refactor:` — Code restructuring without behavior change
+- `doc:` — Documentation changes
+
+Commit messages must be concise, descriptive, and written in imperative mood (e.g., `feat: add JWT token validation middleware`).
+
+### Commit Strategy
+- **Small, logically grouped commits**: Each commit should represent one logical change. Do NOT bundle unrelated changes into a single commit.
+- Group related file changes together (e.g., a new service class and its unit tests in one commit).
+- Typical commit sequence for a feature:
+  1. `feat: add <domain model/interface>`
+  2. `feat: implement <service/logic>`
+  3. `feat: add unit tests for <service/logic>`
+  4. `refactor: extract <shared utility>` (if applicable)
+  5. `doc: update <relevant documentation>` (if applicable)
+
+### Push Policy
+- Always ensure ALL work is committed and pushed before reporting completion.
+- Verify with `git status` that the working directory is clean.
+- Verify with `git log` that commits are properly formatted.
+
 ## Quality Standards
 
 - Every component must have a single, clear responsibility.
