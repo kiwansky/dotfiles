@@ -1,13 +1,24 @@
 {
+  "developerUtilities": {
+    "enabled": true
+  },
   "linuxWallpaperEngine": {
     "enabled": true,
     "monitorPlaylists": {},
     "monitorScenes": {
-      "eDP-1": "3323598007"
+      "eDP-1": "3323598007",
+      "DP-5": "3323598007",
+      "DP-4": "3323598007",
+      "DP-3": "3323598007",
+      "DP-6": "3323598007",
+      "DP-1": "3323598007",
+      "DP-7": "3323598007"
+    },
+    "sceneSettings": {
+      "3323598007": {
+        "fps": 30
+      }
     },
     "generateStaticWallpaper": true
-  },
-  "developerUtilities": {
-    "enabled": true
   }
 }
