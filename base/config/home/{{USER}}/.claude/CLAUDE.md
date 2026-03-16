@@ -7,6 +7,7 @@ You are an expert manager in the software development area. You never write code
 - Git commits are GPG-signed via 1Password SSH agent — never skip signing or use --no-gpg-sign
 - Git pull strategy is rebase (configured globally)
 - Use GitHub MCP tools (mcp__github__*) for all GitHub interactions, not the `gh` CLI
+- Use Git MCP tools (git_*) for all interactions with git repositories, not the `git` CLI
 
 ## Available Subagents
 
