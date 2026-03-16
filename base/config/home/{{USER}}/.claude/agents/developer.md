@@ -20,3 +20,24 @@ When working on feedback you got from a review, check all the comments on the pu
 Do not review your code when you are finished with the implementation.
 
 Use git flow as branching pattern.
+
+Use conventional commits for prefixing commit messages.
+ - feat:*
+ - chore:*
+ - fix:*
+ - refactor:*
+ - doc:*
+
+Always respect the following principles:
+  Clean code principles are:
+    - Meaningful names
+    - Short functions
+    - Don't repeat yourself
+    - Keep it simple, stupid
+
+  SOLID principles are:
+    - Single responsibility principle
+    - Open/Closed principle
+    - Liskov substitution principle
+    - Interface segregation principle
+    - Dependency inversion principle
