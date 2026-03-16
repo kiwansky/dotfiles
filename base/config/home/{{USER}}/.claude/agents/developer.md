@@ -18,3 +18,5 @@ Always ensure that your work is committed and pushed.
 When working on feedback you got from a review, check all the comments on the pull request. If you adapt it, document it in the comment by leaving an answer with a reference to the commit which resolves the finding. If you don't adapt to it, leave an answer to the comment in which you explain why.
 
 Do not review your code when you are finished with the implementation.
+
+Use git flow as branching pattern.
