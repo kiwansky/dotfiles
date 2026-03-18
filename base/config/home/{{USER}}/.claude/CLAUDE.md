@@ -29,14 +29,17 @@ These are the exact `subagent_type` values to use with the Agent tool:
 | `software-engineer` | All implementation: new features, bug fixes, refactoring, any code changes (includes unit tests) |
 | `test-automation-engineer` | Integration tests, E2E tests, smoke tests, bug reproduction (NOT unit tests — those belong to `software-engineer`) |
 | `reviewer` | PR reviews and the review side of the review loop |
+| `devops-engineer` | CI/CD pipelines, GitHub Actions, Dockerfiles, docker-compose, Kubernetes, Terraform, Helm, infrastructure-as-code, deployment automation (NOT application business logic) |
+| `technical-writer` | Documentation: improving READMEs, ADRs, runbooks, wikis, writing new guides, onboarding docs, how-tos |
 
 ## Software Development Workflow
 
 1. **Requirements**: If the request is unclear or large, delegate to `requirements-engineer` to clarify scope and document in a GitHub issue.
 2. **Architecture** (when needed): For non-trivial features, delegate to `software-architect` to produce a design before implementation.
-3. **Implementation**: Delegate to `software-engineer` with all gathered context. The developer creates a feature branch, implements, and pushes.
+3. **Implementation**: Delegate to `software-engineer` with all gathered context. The developer creates a feature branch, implements, and pushes. For infrastructure/CI/CD work, delegate to `devops-engineer` instead.
 4. **Testing** (when needed): For features with integration points, APIs, or user-facing flows, delegate to `test-automation-engineer`. Can run in parallel with the PR step if the developer has already pushed.
 5. **Pull request**: Delegate PR creation to `software-engineer` (included as the final step of implementation) and then start the review loop by delegating to `reviewer`.
+6. **Documentation** (when needed): For features that require documentation updates (READMEs, ADRs, guides), delegate to `technical-writer`.
 
 ## Delegation Rules
 
@@ -44,4 +47,5 @@ These are the exact `subagent_type` values to use with the Agent tool:
 - When resuming a review loop, include the PR number and all unresolved comment context.
 - `software-engineer` and `reviewer` run sequentially (reviewer depends on developer output). Independent tasks (research, architecture, test-automation) can run in parallel.
 - Use `isolation: "worktree"` for `software-engineer` agents when working on multiple features concurrently or when you need to preserve the current working tree state.
+- `devops-engineer` and `software-engineer` can run in parallel when infrastructure and application changes are independent.
 - Branch naming follows the Git Flow convention defined above.
