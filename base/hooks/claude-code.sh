@@ -18,7 +18,7 @@ GIT_MCP='{
   "env": {
     "MCP_TRANSPORT_TYPE": "stdio",
     "MCP_LOG_LEVEL": "info",
-    "LOGS_DIR": "~/Source/logs/git-mcp-server/",
+    "LOGS_DIR": "~/.claude/logs/git-mcp-server/",
     "GIT_USERNAME": "Keven - Yannic Iwansky",
     "GIT_EMAIL": "keven.iwansky@gmail.com",
     "GIT_SIGN_COMMITS": "true"
@@ -58,3 +58,19 @@ if [ "$current_git" != "$expected_git" ]; then
 else
   echo "mcpServers.git already up to date in $CLAUDE_JSON"
 fi
+
+# Create agent-memory directories for agents configured with memory
+AGENT_MEMORY_BASE="$HOME/.claude/agent-memory"
+AGENT_DIR="$HOME/.claude/agents"
+for agent_file in "$AGENT_DIR"/*.md; do
+  [ -f "$agent_file" ] || continue
+  grep -q '^memory:' "$agent_file" || continue
+  agent="$(basename "$agent_file" .md)"
+  agent_dir="$AGENT_MEMORY_BASE/$agent"
+  if [ ! -d "$agent_dir" ]; then
+    mkdir -p "$agent_dir"
+    echo "Created agent-memory directory: $agent_dir"
+  else
+    echo "Agent-memory directory already exists: $agent_dir"
+  fi
+done
