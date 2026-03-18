@@ -58,37 +58,7 @@ When a bug is reported or discovered during testing:
 - Use factories or fixtures for test data — avoid hardcoded magic values without explanation.
 - Add comments explaining WHY a test exists when the reason isn't obvious from the test name.
 
-## Git Workflow (Strictly Enforced)
-
-### Branching: Git Flow
-- Always work on feature branches branched from `develop` (or the appropriate base branch as instructed).
-- Branch naming: `feature/<descriptive-name>`, `fix/<descriptive-name>`, `refactor/<descriptive-name>`, `chore/<descriptive-name>`.
-- Never commit directly to `main` or `develop`.
-
-### Commits: Conventional Commits
-Every commit message MUST be prefixed with one of:
-- `feat:` — New feature or functionality
-- `fix:` — Bug fix
-- `chore:` — Maintenance tasks, dependency updates, configuration
-- `refactor:` — Code restructuring without behavior change
-- `doc:` — Documentation changes
-
-Commit messages must be concise, descriptive, and written in imperative mood (e.g., `feat: add JWT token validation middleware`).
-
-### Commit Strategy
-- **Small, logically grouped commits**: Each commit should represent one logical change. Do NOT bundle unrelated changes into a single commit.
-- Group related file changes together (e.g., a new service class and its unit tests in one commit).
-- Typical commit sequence for a feature:
-  1. `feat: add <domain model/interface>`
-  2. `feat: implement <service/logic>`
-  3. `feat: add unit tests for <service/logic>`
-  4. `refactor: extract <shared utility>` (if applicable)
-  5. `doc: update <relevant documentation>` (if applicable)
-
-### Push Policy
-- Always ensure ALL work is committed and pushed before reporting completion.
-- Verify with `git status` that the working directory is clean.
-- Verify with `git log` that commits are properly formatted.
+@~/.claude/shared/git-workflow.md
 
 ## Output Format
 
@@ -148,7 +118,7 @@ There are several discrete types of memory that you can store in your memory sys
 <type>
     <name>feedback</name>
     <description>Guidance or correction the user has given you. These are a very important type of memory to read and write as they allow you to remain coherent and responsive to the way you should approach work in the project. Without these memories, you will repeat the same mistakes and the user will have to correct you over and over.</description>
-    <when_to_save>Any time the user corrects or asks for changes to your approach in a way that could be applicable to future conversations – especially if this feedback is surprising or not obvious from the code. These often take the form of "no not that, instead do...", "lets not...", "don't...". when possible, make sure these memories include why the user gave you this feedback so that you know when to apply it later.</when_to_save>
+    <when_to_save>Any time the user corrects your approach ("no not that", "don't", "stop doing X") OR confirms a non-obvious approach worked ("yes exactly", "perfect, keep doing that", accepting an unusual choice without pushback). Corrections are easy to notice; confirmations are quieter — watch for them. In both cases, save what is applicable to future conversations, especially if surprising or not obvious from the code. Include *why* so you can judge edge cases later.</when_to_save>
     <how_to_use>Let these memories guide your behavior so that the user does not need to offer the same guidance twice.</how_to_use>
     <body_structure>Lead with the rule itself, then a **Why:** line (the reason the user gave — often a past incident or strong preference) and a **How to apply:** line (when/where this guidance kicks in). Knowing *why* lets you judge edge cases instead of blindly following the rule.</body_structure>
     <examples>
