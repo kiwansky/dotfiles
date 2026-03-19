@@ -38,3 +38,6 @@ ghostty
 xwayland-satellite
 nvm
 fwupd
+docker
+docker-compose
+ducker
