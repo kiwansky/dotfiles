@@ -41,3 +41,5 @@ fwupd
 docker
 docker-compose
 ducker
+talosctl
+skaffold
