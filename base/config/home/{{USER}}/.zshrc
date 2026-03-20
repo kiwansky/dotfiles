@@ -109,7 +109,7 @@ fi
 source $ZSH/oh-my-zsh.sh
 
 # Setup zoxide
-eval "$(zoxide init zsh)"
+eval "$(zoxide init --cmd cd zsh)"
 
 # Setup fzf
 source <(fzf --zsh)
