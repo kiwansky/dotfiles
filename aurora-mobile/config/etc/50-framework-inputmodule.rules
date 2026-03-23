@@ -1,2 +1,0 @@
-# Framework Laptop 16 - LED Matrix
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="32ac", ATTRS{idProduct}=="0020", MODE="0660", TAG+="uaccess"
