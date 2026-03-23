@@ -109,13 +109,19 @@ fi
 source $ZSH/oh-my-zsh.sh
 
 # Setup zoxide
-eval "$(zoxide init --cmd cd zsh)"
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init --cmd cd zsh)"
+fi
 
 # Setup fzf
 source <(fzf --zsh)
 
-# Aliases
-alias eza="eza --icons"
+# eza
+if command -v eza &>/dev/null; then
+  alias ls='eza'
+  alias ll='eza -l --icons --git'
+  alias la='eza -la --icons --git'
+fi
 
 # Append go binaries to PATH
 export PATH=$PATH:$(go env GOPATH)/bin
