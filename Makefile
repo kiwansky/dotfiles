@@ -4,7 +4,7 @@
 USER := $(shell whoami)
 HOST := $(shell cat /etc/hostname)
 
-.PHONY: all deps pkgs aur cfg hooks
+.PHONY: all deps pkgs aur update cfg hooks
 
 # Default target: run all deployment steps in order.
 all: deps pkgs aur cfg hooks
@@ -58,6 +58,13 @@ aur:
 	else \
 		echo "No AUR packages to install."; \
 	fi
+
+# --------------------------------------------------------------------------
+# update — Update all installed packages (official repos + AUR) via paru.
+# --------------------------------------------------------------------------
+update:
+	@echo "Updating all packages (official repos + AUR)..."
+	@paru -Syu
 
 # --------------------------------------------------------------------------
 # cfg — Deploy config files to their absolute paths on the filesystem.
