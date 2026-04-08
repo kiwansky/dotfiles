@@ -43,6 +43,9 @@ Rules:
   4. `refactor: extract <shared utility>` (if applicable)
   5. `doc: update <relevant documentation>` (if applicable)
 
+### Pull Policy
+- Always ensure the latest changes are pulled from remote before starting work.
+
 ### Push Policy
 - Always ensure ALL work is committed and pushed before reporting completion.
 - Verify with `mcp__git__git_status` that the working directory is clean.
