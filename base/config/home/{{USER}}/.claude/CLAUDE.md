@@ -1,51 +1,125 @@
-You are an expert manager in the software development area. You never write code, commit to repositories, create or modify GitHub issues/PRs, or make any other changes — you only discuss, plan, read, and delegate. Sub-Agents are allowed to write.
+# Claude Code Guidelines
 
-- **Reading is allowed**: You may read files, git history, GitHub issues, PRs, and any other resources to gather context.
-- **Writing is forbidden**: Any action that creates or modifies something (commits, issues, PRs, file changes, branch creation, etc.) must be delegated to a subagent.
-- **No subagent for the task?** Tell the user explicitly that no subagent covers this task and suggest they create one.
+## General Behavior
 
-## User & Environment
+Ask clarifying questions when needed. Also sub-agents and agent teams should ask clarifying questions when needed.
 
-- GitHub: kiwansky (Keven - Yannic Iwansky), email: keven.iwansky@gmail.com
-- Projects live under ~/Source/
-- Git pull strategy is rebase (configured globally)
-- GitHub HTTPS URLs are rewritten to SSH (`git@github.com:`) via gitconfig
+## Git Branching
 
-@~/.claude/shared/git-workflow.md
+Use **GitFlow** branching strategy. Always include the issue ID in the branch name.
 
-## Reading & Exploration
+### Branch Types and Patterns
 
-- **Codebase exploration**: Use the Explore agent or Glob/Grep tools directly to gather context.
-- **Do not read code to make implementation decisions** — delegate that to the appropriate subagent. Read only enough to understand scope and delegate effectively.
+| Branch | Branched From | Merged Back Into | Naming Pattern |
+|--------|--------------|-----------------|----------------|
+| `main` | — | — | `main` |
+| `develop` | `main` | — | `develop` |
+| `feature` | `develop` | `develop` | `feature/<issue-id>-<short-description>` |
+| `bugfix` | `develop` | `develop` | `bugfix/<issue-id>-<short-description>` |
+| `release` | `develop` | `main` + `develop` | `release/<version>` |
+| `hotfix` | `main` | `main` + `develop` | `hotfix/<issue-id>-<short-description>` |
 
-## Available Subagents
+**Examples:**
+- `feature/42-add-user-authentication`
+- `bugfix/87-fix-token-expiry`
+- `hotfix/99-critical-login-crash`
+- `release/1.3.0`
 
-These are the exact `subagent_type` values to use with the Agent tool:
+### Rules
+- Never commit directly to `main` or `develop`.
+- Release branches are version-named, not issue-named (but may reference a milestone).
+- After merging a release or hotfix into `main`, tag the commit with the version.
+- Use semantic versioning.
 
-| `subagent_type` | When to use |
-|---|---|
-| `requirements-engineer` | Vague or complex requests that need scoping, clarification, acceptance criteria, or issue creation |
-| `software-architect` | System design, architecture decisions, component relationships, technical documentation |
-| `software-engineer` | All implementation: new features, bug fixes, refactoring, any code changes (includes unit tests) |
-| `test-automation-engineer` | Integration tests, E2E tests, smoke tests, bug reproduction (NOT unit tests — those belong to `software-engineer`) |
-| `reviewer` | PR reviews and the review side of the review loop |
-| `devops-engineer` | CI/CD pipelines, GitHub Actions, Dockerfiles, docker-compose, Kubernetes, Terraform, Helm, infrastructure-as-code, deployment automation (NOT application business logic) |
-| `technical-writer` | Documentation: improving READMEs, ADRs, runbooks, wikis, writing new guides, onboarding docs, how-tos |
+---
 
-## Software Development Workflow
+## Git Commits
 
-1. **Requirements**: If the request is unclear or large, delegate to `requirements-engineer` to clarify scope and document in a GitHub issue.
-2. **Architecture** (when needed): For non-trivial features, delegate to `software-architect` to produce a design before implementation.
-3. **Implementation**: Delegate to `software-engineer` with all gathered context. The developer creates a feature branch, implements, and pushes. For infrastructure/CI/CD work, delegate to `devops-engineer` instead.
-4. **Testing** (when needed): For features with integration points, APIs, or user-facing flows, delegate to `test-automation-engineer`. Can run in parallel with the PR step if the developer has already pushed.
-5. **Pull request**: Delegate PR creation to `software-engineer` (included as the final step of implementation) and then start the review loop by delegating to `reviewer`.
-6. **Documentation** (when needed): For features that require documentation updates (READMEs, ADRs, guides), delegate to `technical-writer`.
+Make **small, logically grouped commits**. Each commit should represent a single coherent change. Reference the issue ID in every commit message.
 
-## Delegation Rules
+### Conventional Commit Format
 
-- Always include in every delegation: repo path, branch name, GitHub issue/PR number, and a clear task description.
-- When resuming a review loop, include the PR number and all unresolved comment context.
-- `software-engineer` and `reviewer` run sequentially (reviewer depends on developer output). Independent tasks (research, architecture, test-automation) can run in parallel.
-- Use `isolation: "worktree"` for `software-engineer` agents when working on multiple features concurrently or when you need to preserve the current working tree state.
-- `devops-engineer` and `software-engineer` can run in parallel when infrastructure and application changes are independent.
-- Branch naming follows the Git Flow convention defined above.
+```
+<type>(<scope>): <short description> [#<issue-id>]
+
+[optional body]
+
+[optional footer]
+```
+
+### Commit Types
+
+| Type | When to use |
+|------|-------------|
+| `feat` | New feature |
+| `fix` | Bug fix |
+| `docs` | Documentation only |
+| `style` | Formatting, no logic change |
+| `refactor` | Code restructuring, no behavior change |
+| `test` | Adding or updating tests |
+| `chore` | Build process, dependency updates |
+| `ci` | CI/CD pipeline changes |
+| `perf` | Performance improvement |
+
+**Examples:**
+- `feat(auth): add JWT refresh token support [#42]`
+- `fix(api): handle null response from payment gateway [#87]`
+- `test(auth): add acceptance tests for login flow [#42]`
+- `ci: add deployment step for staging environment [#55]`
+
+### Rules
+- Keep commits small and focused — one logical change per commit.
+- Always reference the issue ID using `[#<issue-id>]` at the end of the subject line.
+- Write the subject in the imperative mood ("add", not "added" or "adds").
+- Limit the subject line to 72 characters.
+
+---
+
+## Sub-Agent Delegation
+
+**Always delegate tasks to the matching sub-agent.** Do not perform tasks yourself that belong to a defined sub-agent role.
+
+| Task | Sub-Agent |
+|------|-----------|
+| Creating/refining user stories, backlog management | `product-owner` |
+| Defining and documenting acceptance criteria | `requirements-engineer` |
+| Architectural design and documentation | `software-architect` |
+| API specification design | `api-designer` |
+| UI/UX design | `ui-ux-engineer` |
+| Implementation | `software-engineer` |
+| Writing tests, acceptance test coverage | `test-engineer` |
+| CI/CD pipeline setup and adjustments | `ci-cd-engineer` |
+| Documentation consistency and README updates | `technical-writer` |
+| Code review | `code-reviewer` |
+| Planning implementation approach | `Plan` |
+| Codebase exploration | `Explore` |
+
+If a task requires a role that has no matching sub-agent, **recommend creating a custom sub-agent** for that specific role before proceeding.
+
+---
+
+## Software Development Skills
+
+The development process is implemented as slash commands. Use them in sequence or independently:
+
+| Skill | Command | Purpose |
+|-------|---------|---------|
+| User Story | `/story` | Create or update a user story in the issue tracker |
+| Refinement | `/refine` | Full refinement: user stories, acceptance criteria, early UX/arch notes |
+| Design | `/design` | Architecture, ADRs, API spec, and documentation |
+| Implementation | `/implement` | Code + tests following architecture and acceptance criteria |
+| Testing | `/test` | Focused test-writing or test-review pass on existing code |
+| Review | `/review` | Full review cycle: PR creation, code review, address findings |
+| CI/CD | `/cicd` | Set up or update the CI/CD pipeline |
+| Documentation | `/document` | Audit and update project documentation |
+| Release | `/release` | Prepare a release: changelog, version bump, merge, tag |
+| Spike | `/spike` | Time-boxed investigation for uncertain areas |
+
+**Typical flow**: `/story` → `/refine` → `/design` → `/implement` → `/review` → `/document`
+
+---
+
+## MCP Server Usage
+
+- **Git operations** (branching, commits, log, status, etc.): Use the **git MCP server**.
+- **GitHub operations** (issues, PRs, reviews, labels, etc.): Use the **GitHub MCP server**.
