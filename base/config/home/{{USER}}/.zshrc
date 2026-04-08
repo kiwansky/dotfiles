@@ -118,7 +118,7 @@ source <(fzf --zsh)
 
 # eza
 if command -v eza &>/dev/null; then
-  alias ls='eza'
+  alias ls='eza --icons --git'
   alias ll='eza -l --icons --git'
   alias la='eza -la --icons --git'
 fi
