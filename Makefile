@@ -72,13 +72,35 @@ update:
 # - {{USER}} in directory names is replaced with $(USER).
 # - Files under /home/$(USER) are copied as the current user; others use sudo.
 # - Base layer is applied first, then host layer overwrites where applicable.
-# - .gitkeep files are skipped.
+# - .gitkeep and .clean files are skipped.
+# - If a directory contains a .clean file, all existing files in the
+#   corresponding host directory are removed before copying.
 # --------------------------------------------------------------------------
 cfg:
 	@for layer in base $(HOST); do \
 		CFG_DIR="$$layer/config"; \
 		[ -d "$$CFG_DIR" ] || continue; \
-		find "$$CFG_DIR" -type f ! -name '.gitkeep' | while read -r src; do \
+		find "$$CFG_DIR" -name '.clean' | while read -r clean; do \
+			CLEAN_DIR=$$(dirname "$$clean"); \
+			REL=$${CLEAN_DIR#$$CFG_DIR/}; \
+			TARGET_DIR="/$$REL"; \
+			TARGET_DIR=$$(echo "$$TARGET_DIR" | sed 's|{{USER}}|$(USER)|g'); \
+			case "$$TARGET_DIR" in \
+				/home/$(USER)/*) \
+					if [ -d "$$TARGET_DIR" ]; then \
+						echo "Cleaning $$TARGET_DIR"; \
+						find "$$TARGET_DIR" -mindepth 1 -depth -delete; \
+					fi; \
+					;; \
+				*) \
+					if [ -d "$$TARGET_DIR" ]; then \
+						echo "Cleaning $$TARGET_DIR (sudo)"; \
+						sudo find "$$TARGET_DIR" -mindepth 1 -depth -delete; \
+					fi; \
+					;; \
+			esac; \
+		done; \
+		find "$$CFG_DIR" -type f ! -name '.gitkeep' ! -name '.clean' | while read -r src; do \
 			REL=$${src#$$CFG_DIR/}; \
 			TARGET="/$$REL"; \
 			TARGET=$$(echo "$$TARGET" | sed 's|{{USER}}|$(USER)|g'); \
