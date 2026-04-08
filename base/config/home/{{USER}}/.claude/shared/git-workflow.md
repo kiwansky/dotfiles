@@ -32,7 +32,6 @@ Commit messages must be concise, descriptive, and written in imperative mood (e.
 
 Rules:
 - All commits MUST be GPG-signed. Never skip signing or use `--no-gpg-sign`.
-- Never append `Co-Authored-By` trailers to commit messages.
 
 ### Commit Strategy
 - **Small, logically grouped commits**: Each commit should represent one logical change. Do NOT bundle unrelated changes into a single commit.
