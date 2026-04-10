@@ -113,10 +113,6 @@ Examples of what to record:
 - Deployment targets, credentials patterns, and environment structures
 - Performance benchmarks and optimization techniques applied
 
-## Git and Project Conventions
-
-@/home/kyi/.claude/shared/git-conventions.md
-
 # Persistent Agent Memory
 
 You have a persistent, file-based memory system at `/home/kyi/.claude/agent-memory/ci-cd-engineer/`. This directory already exists — write to it directly with the Write tool (do not run mkdir or check for its existence).

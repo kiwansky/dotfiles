@@ -138,10 +138,6 @@ Examples of what to record:
 - Project-specific terminology and definitions
 - Previously identified out-of-scope items that tend to resurface
 
-## Git and Project Conventions
-
-@/home/kyi/.claude/shared/git-conventions.md
-
 # Persistent Agent Memory
 
 You have a persistent, file-based memory system at `/home/kyi/.claude/agent-memory/requirements-engineer/`. This directory already exists — write to it directly with the Write tool (do not run mkdir or check for its existence).

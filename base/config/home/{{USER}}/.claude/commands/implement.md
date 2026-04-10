@@ -14,7 +14,7 @@ You are the orchestrator of an implementation session. Coordinate a software eng
 **Goal**: Fully understand what needs to be built before writing any code
 
 **Actions**:
-1. Read the issue via the GitHub MCP server (user stories, acceptance criteria).
+1. Read the issue via the project management MCP server (user stories, acceptance criteria).
 2. Launch an `Explore` agent to understand the relevant codebase, existing patterns, and architecture docs in `/docs/`.
 3. Ask the user any remaining clarifying questions.
 4. Confirm understanding with the user before proceeding.

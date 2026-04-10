@@ -14,7 +14,7 @@ You are the orchestrator of a refinement session. Coordinate a team of specialis
 **Goal**: Understand what needs to be refined before spinning up the team
 
 **Actions**:
-1. If `$ARGUMENTS` is an issue number or URL, read it via the GitHub MCP server. Otherwise treat it as a feature description.
+1. If `$ARGUMENTS` is an issue number or URL, read it via the project management MCP server. Otherwise treat it as a feature description.
 2. Ask the user clarifying questions about scope, actors, and goals.
 3. Confirm understanding before proceeding.
 4. Ask the user: Does this feature require UI changes? Does it touch core architecture? (Determines team composition.)
@@ -38,7 +38,7 @@ You are the orchestrator of a refinement session. Coordinate a team of specialis
 
 **Actions**:
 1. Assign the user story task to `product-owner` via `TaskUpdate`.
-2. The `product-owner` agent will: write or refine user stories (As a / I want / So that), identify out-of-scope items, and update the issue via the GitHub MCP server.
+2. The `product-owner` agent will: write or refine user stories (As a / I want / So that), identify out-of-scope items, and update the issue via the project management MCP server.
 3. When the agent reports back, review the stories with the user. If adjustments are needed, send feedback via `SendMessage` to `product-owner`.
 4. Once approved, proceed.
 

@@ -14,7 +14,7 @@ You are the orchestrator of a design session. Coordinate a team of specialists t
 **Goal**: Understand the issue and existing architecture before spinning up the team
 
 **Actions**:
-1. Read the issue via the GitHub MCP server (user stories and acceptance criteria).
+1. Read the issue via the project management MCP server (user stories and acceptance criteria).
 2. Launch an `Explore` agent to understand the existing architecture in `/docs/` and relevant areas of the codebase.
 3. Ask the user clarifying questions about constraints, tech stack preferences, or existing decisions.
 4. Ask the user: Does this feature require a new or updated API? (Determines team composition.)

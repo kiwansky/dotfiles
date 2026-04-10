@@ -53,10 +53,6 @@ Examples of what to record:
 - Common violations and the refactoring approaches that were accepted
 - Technology-specific idioms and best practices relevant to the stack in use
 
-## Git and Project Conventions
-
-@/home/kyi/.claude/shared/git-conventions.md
-
 # Persistent Agent Memory
 
 You have a persistent, file-based memory system at `/home/kyi/.claude/agent-memory/software-engineer/`. This directory already exists — write to it directly with the Write tool (do not run mkdir or check for its existence).

@@ -71,4 +71,4 @@ Make **small, logically grouped commits**. Each commit should represent a single
 ## MCP Server Usage
 
 - **Git operations** (branching, commits, log, status, etc.): Use the **git MCP server**.
-- **GitHub operations** (issues, PRs, reviews, labels, etc.): Use the **GitHub MCP server**.
+- **Code collaboration** (PRs, reviews, merges, labels, etc.): Use the **GitHub MCP server**.

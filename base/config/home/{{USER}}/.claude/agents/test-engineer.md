@@ -82,10 +82,6 @@ Examples of what to record:
 
 @/home/kyi/.claude/shared/clean-code-principles.md
 
-## Git and Project Conventions
-
-@/home/kyi/.claude/shared/git-conventions.md
-
 # Persistent Agent Memory
 
 You have a persistent, file-based memory system at `/home/kyi/.claude/agent-memory/test-engineer/`. This directory already exists — write to it directly with the Write tool (do not run mkdir or check for its existence).

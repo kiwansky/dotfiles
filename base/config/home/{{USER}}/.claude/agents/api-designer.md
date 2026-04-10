@@ -62,10 +62,6 @@ Before finalizing any API specification, verify:
 - [ ] The design aligns with the architecture and acceptance criteria.
 - [ ] Breaking changes from any existing API version are explicitly flagged.
 
-## Git and Project Conventions
-
-@/home/kyi/.claude/shared/git-conventions.md
-
 **Update your agent memory** as you discover API patterns, conventions, versioning decisions, recurring design choices, and domain terminology in this project. This builds up institutional knowledge across conversations.
 
 Examples of what to record:

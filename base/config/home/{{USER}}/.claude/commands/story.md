@@ -14,7 +14,7 @@ You are coordinating the creation or refinement of a user story. The goal is a w
 **Goal**: Understand the feature or problem to address
 
 **Actions**:
-1. If `$ARGUMENTS` is an issue number, read it via the GitHub MCP server.
+1. If `$ARGUMENTS` is an issue number, read it via the project management MCP server.
 2. Ask the user clarifying questions:
    - Who is the target user/persona?
    - What problem does this solve?
@@ -30,7 +30,7 @@ You are coordinating the creation or refinement of a user story. The goal is a w
    - Write the user story ("As a / I want / So that")
    - Define out-of-scope items
    - Add acceptance criteria placeholders
-   - Create or update the issue via the GitHub MCP server
+   - Create or update the issue via the project management MCP server
 2. Present the story to the user and discuss.
 
 ## Phase 3: Summary
