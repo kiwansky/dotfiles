@@ -7,6 +7,7 @@ Ask clarifying questions when needed. Also sub-agents and agent teams should ask
 ## Git and Project Conventions
 
 @/home/kyi/.claude/shared/git-conventions.md
+@/home/kyi/.claude/shared/project-conventions.md
 
 ---
 
@@ -51,11 +52,4 @@ The development process is implemented as slash commands. Use them in sequence o
 | Spike | `/spike` | Time-boxed investigation for uncertain areas |
 
 **Typical flow**: `/story` → `/refine` → `/design` → `/implement` → `/review` → `/document`
-
----
-
-## Git and Project Conventions
-
-@/home/kyi/.claude/shared/git-conventions.md
-@/home/kyi/.claude/shared/project-conventions.md
 
