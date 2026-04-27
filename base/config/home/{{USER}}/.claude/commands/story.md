@@ -26,17 +26,22 @@ You are coordinating the creation or refinement of a user story. The goal is a w
 **Goal**: Produce a well-formed user story
 
 **Actions**:
-1. Launch a `product-owner` agent to:
-   - Write the user story ("As a / I want / So that")
+1. Launch a `product-owner` agent. The agent will:
+   - Write the user story in the "As a [persona] / I want [capability] / So that [value]" format
    - Define out-of-scope items
-   - Add acceptance criteria placeholders
-   - Create or update the issue via the project management MCP server
-2. Present the story to the user and discuss.
+   - Add acceptance criteria *placeholders* (the detailed criteria belong in `/refine`, not here)
+   - Apply standard labels per `project-conventions.md` — at minimum `story`, plus any cross-cutting labels (e.g. `frontend`, `api`, `tech-debt`, `bug`)
+   - Suggest a milestone if one applies
+   - Create or update the issue via the GitHub MCP server
+2. Present the story to the user and discuss. Iterate via `SendMessage` if the persona, scope, or value statement needs sharpening.
 
 ## Phase 3: Summary
 
-**Goal**: Confirm the story is ready
+**Goal**: Confirm the story is ready and point to the next step
 
 **Actions**:
-1. Confirm the issue is updated.
-2. Suggest running `/refine` to add detailed acceptance criteria and design considerations.
+1. Confirm the issue is updated. Print the issue number and URL.
+2. Suggest the next step in the pipeline:
+   - **`/refine`** to add detailed acceptance criteria, UX notes, and architectural considerations (most common next step).
+   - **`/spike`** if the story has unresolved technical uncertainty before refinement makes sense.
+   - **`/discovery`** if the story is more "we think we should build X" than "we know X solves a real problem" — validate the problem first.

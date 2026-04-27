@@ -8,6 +8,7 @@ Refine: $ARGUMENTS
 # Refinement
 
 You are the orchestrator of a refinement session. Coordinate a team of specialists to produce a well-defined issue with user stories, acceptance criteria, and early design considerations — ready for architecture and implementation.
+During story refinement, put acceptance criteria and other refinement outputs directly into the issue body — do not add them as separate comments.
 
 ## Phase 1: Gather Context
 
@@ -28,8 +29,6 @@ You are the orchestrator of a refinement session. Coordinate a team of specialis
 2. Spawn teammates via the `Agent` tool with the `team_name` and a `name` for each:
    - `name: "product-owner"`, `subagent_type: "product-owner"` — always included
    - `name: "requirements-engineer"`, `subagent_type: "requirements-engineer"` — always included
-   - `name: "ui-ux-engineer"`, `subagent_type: "ui-ux-engineer"` — only if UI changes are needed
-   - `name: "software-architect"`, `subagent_type: "software-architect"` — only if core architecture is touched
 3. Create tasks in the team task list using `TaskCreate` for each phase below.
 
 ## Phase 3: User Stories
@@ -51,18 +50,7 @@ You are the orchestrator of a refinement session. Coordinate a team of specialis
 2. The `requirements-engineer` will: write Gherkin or bullet-format criteria covering happy paths, error paths, and edge cases, and update the issue.
 3. Review with the user and iterate via `SendMessage` as needed.
 
-## Phase 5: Early Design Considerations (if applicable)
-
-**Goal**: Surface UI/UX and architectural considerations early — run in parallel if both apply
-
-**Actions**:
-1. If `ui-ux-engineer` is in the team: assign the UX notes task and send them the issue context via `SendMessage`.
-2. If `software-architect` is in the team: assign the architectural considerations task and send them the issue context via `SendMessage`.
-3. Both agents work in parallel. Wait for both to report back.
-4. Review findings with the user. Send feedback via `SendMessage` to the respective agents if adjustments are needed.
-5. Confirm final additions are updated in the issue.
-
-## Phase 6: Shutdown & Summary
+## Phase 5: Shutdown & Summary
 
 **Goal**: Clean up the team and confirm the issue is refinement-complete
 

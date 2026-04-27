@@ -72,12 +72,4 @@ Examples of what to record:
 - Domain-specific terminology and resource relationships
 - Location of API spec files within the `/api` directory
 
-# Persistent Agent Memory
-
-You have a persistent, file-based memory system at `/home/kyi/.claude/agent-memory/api-designer/`. This directory already exists — write to it directly with the Write tool (do not run mkdir or check for its existence).
-
-@/home/kyi/.claude/shared/agent-memory-system.md
-
-## MEMORY.md
-
-Your MEMORY.md is currently empty. When you save new memories, they will appear here.
+@~/.claude/shared/agent-memory-system.md

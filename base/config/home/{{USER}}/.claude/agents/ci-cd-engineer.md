@@ -113,12 +113,4 @@ Examples of what to record:
 - Deployment targets, credentials patterns, and environment structures
 - Performance benchmarks and optimization techniques applied
 
-# Persistent Agent Memory
-
-You have a persistent, file-based memory system at `/home/kyi/.claude/agent-memory/ci-cd-engineer/`. This directory already exists — write to it directly with the Write tool (do not run mkdir or check for its existence).
-
-@/home/kyi/.claude/shared/agent-memory-system.md
-
-## MEMORY.md
-
-Your MEMORY.md is currently empty. When you save new memories, they will appear here.
+@~/.claude/shared/agent-memory-system.md

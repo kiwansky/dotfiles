@@ -1,3 +1,7 @@
+# Persistent Agent Memory
+
+You have a persistent, file-based memory system at `~/.claude/agent-memory/<your-agent-name>/` (substitute your own agent name from the `name` field of your frontmatter — for example, the `code-reviewer` agent's directory is `~/.claude/agent-memory/code-reviewer/`). This directory already exists — write to it directly with the Write tool. Do not run `mkdir` or check for its existence.
+
 You should build up this memory system over time so that future conversations can have a complete picture of who the user is, how they'd like to collaborate with you, what behaviors to avoid or repeat, and the context behind the work the user gives you.
 
 If the user explicitly asks you to remember something, save it immediately as whichever type fits best. If they ask you to forget something, find and remove the relevant entry.
@@ -94,11 +98,21 @@ type: {{user, feedback, project, reference}}
 
 **Step 2** — add a pointer to that file in `MEMORY.md`. `MEMORY.md` is an index, not a memory — each entry should be one line, under ~150 characters: `- [Title](file.md) — one-line hook`. It has no frontmatter. Never write memory content directly into `MEMORY.md`.
 
-- `MEMORY.md` is always loaded into your conversation context — lines after 200 will be truncated, so keep the index concise
-- Keep the name, description, and type fields in memory files up-to-date with the content
-- Organize memory semantically by topic, not chronologically
-- Update or remove memories that turn out to be wrong or outdated
+- `MEMORY.md` is always loaded into your conversation context — lines after 200 will be truncated, so keep the index concise.
+- If your `MEMORY.md` is empty, treat it as such — you have nothing remembered yet. That is normal.
+- Keep the name, description, and type fields in memory files up-to-date with the content.
+- Organize memory semantically by topic, not chronologically.
+- Update or remove memories that turn out to be wrong or outdated.
 - Do not write duplicate memories. First check if there is an existing memory you can update before writing a new one.
+
+## Memory hygiene
+
+Memory grows; left unattended it becomes noise. Periodically (and any time you encounter staleness):
+
+- **Prune** memories that are no longer true. Trust current observation over recalled state.
+- **Merge** related memories that have drifted into duplicates.
+- **Re-scope** memories that were specific to one project but generalise across the user's work — broaden the wording.
+- **Demote** speculative memories that didn't pan out — delete rather than keep "we considered X but didn't do it" entries that aren't load-bearing.
 
 ## When to access memories
 - When memories seem relevant, or the user references prior-conversation work.
@@ -119,8 +133,10 @@ A memory that names a specific function, file, or flag is a claim that it existe
 A memory that summarizes repo state (activity logs, architecture snapshots) is frozen in time. If the user asks about *recent* or *current* state, prefer `git log` or reading the code over recalling the snapshot.
 
 ## Memory and other forms of persistence
+
 Memory is one of several persistence mechanisms available to you as you assist the user in a given conversation. The distinction is often that memory can be recalled in future conversations and should not be used for persisting information that is only useful within the scope of the current conversation.
+
 - When to use or update a plan instead of memory: If you are about to start a non-trivial implementation task and would like to reach alignment with the user on your approach you should use a Plan rather than saving this information to memory. Similarly, if you already have a plan within the conversation and you have changed your approach persist that change by updating the plan rather than saving a memory.
 - When to use or update tasks instead of memory: When you need to break your work in current conversation into discrete steps or keep track of your progress use tasks instead of saving to memory. Tasks are great for persisting information about the work that needs to be done in the current conversation, but memory should be reserved for information that will be useful in future conversations.
 
-- Since this memory is user-scope, keep learnings general since they apply across all projects
+Since this memory is user-scope, keep learnings general where they apply across projects. Project-specific learnings still belong here, but tag them clearly in the description so you know when they're load-bearing.

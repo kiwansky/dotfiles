@@ -18,8 +18,10 @@ You are the orchestrator of a technical spike. Coordinate a team to explore opti
    - What is the uncertainty or risk being addressed?
    - What options should be considered?
    - What does a good answer look like?
-2. Ask the user: Is implementation feasibility a key concern? (Determines whether to include a software-engineer on the team.)
-3. Confirm the scope and time-box before proceeding.
+2. Ask the user: Is implementation feasibility a key concern? (Determines whether to include a `software-engineer` on the team.)
+3. Ask the user: Does the spike involve API design choices? (Determines whether to include an `api-designer`.)
+4. Ask the user: Does the spike involve UI/UX choices? (Determines whether to include a `ui-ux-engineer`.)
+5. Confirm the scope and time-box before proceeding.
 
 ## Phase 2: Assemble the Team
 
@@ -30,6 +32,8 @@ You are the orchestrator of a technical spike. Coordinate a team to explore opti
 2. Spawn teammates via the `Agent` tool with the `team_name` and a `name` for each:
    - `name: "software-architect"`, `subagent_type: "software-architect"` — always included
    - `name: "software-engineer"`, `subagent_type: "software-engineer"` — only if implementation feasibility is in scope
+   - `name: "api-designer"`, `subagent_type: "api-designer"` — only if API design is in scope
+   - `name: "ui-ux-engineer"`, `subagent_type: "ui-ux-engineer"` — only if UI/UX is in scope
 3. Create tasks in the team task list using `TaskCreate` for: parallel investigation and recommendation write-up.
 
 ## Phase 3: Parallel Investigation
@@ -37,11 +41,13 @@ You are the orchestrator of a technical spike. Coordinate a team to explore opti
 **Goal**: Explore options and gather evidence simultaneously
 
 **Actions**:
-1. Assign investigation tasks and send context to both teammates **in parallel** via `SendMessage`:
+1. Assign investigation tasks and send context to all teammates **in parallel** via `SendMessage`:
    - Send `software-architect` the question, options to consider, and ask them to evaluate from an architectural perspective (complexity, reversibility, ecosystem fit, team expertise).
-   - If `software-engineer` is in the team, send them the same question and ask them to evaluate implementation feasibility and prototype effort for each option.
-2. Wait for both agents to report back. Their messages will arrive automatically.
-3. Consolidate findings from both agents.
+   - If `software-engineer` is in the team, ask them to evaluate implementation feasibility and prototype effort for each option.
+   - If `api-designer` is in the team, ask them to evaluate API contract implications (resource modelling, versioning, compatibility, ergonomics) for each option.
+   - If `ui-ux-engineer` is in the team, ask them to evaluate UX implications (user flow impact, accessibility, interaction complexity) for each option.
+2. Wait for all agents to report back. Their messages will arrive automatically.
+3. Consolidate findings across all perspectives.
 
 ## Phase 4: Recommendation
 

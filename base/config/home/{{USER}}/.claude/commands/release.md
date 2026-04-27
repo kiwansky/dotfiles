@@ -7,7 +7,7 @@ Release version: $ARGUMENTS
 
 # Release
 
-You are the orchestrator of a release. Coordinate a team to produce a clean release branch, updated changelog, version bump, and a tagged commit in `main` — following GitFlow.
+You are the orchestrator of a release. Coordinate a team to produce a clean release branch, updated changelog, version bump, and a tagged commit in `main` — following GitFlow as defined in `git-conventions.md`.
 
 ## Phase 1: Prepare
 
@@ -25,16 +25,27 @@ You are the orchestrator of a release. Coordinate a team to produce a clean rele
 **Actions**:
 1. Use `TeamCreate` with `team_name: "release-<version>"`.
 2. Spawn teammates via the `Agent` tool with the `team_name` and a `name` for each:
-   - `name: "technical-writer"`, `subagent_type: "technical-writer"`
-3. Create tasks in the team task list using `TaskCreate` for: changelog update and release branch preparation.
+   - `name: "technical-writer"`, `subagent_type: "technical-writer"` — owns the changelog.
+   - `name: "ci-cd-engineer"`, `subagent_type: "ci-cd-engineer"` — verifies CI is green and the release pipeline is ready.
+   - `name: "sre"`, `subagent_type: "sre"` — only if the release contains operational changes (new endpoints, schema migrations, infrastructure updates) — verifies observability, runbooks, and rollback plan.
+3. Create tasks in the team task list using `TaskCreate` for: changelog update, release-readiness check, and release branch preparation.
 
 ## Phase 3: Release Branch
 
 **Goal**: Create the release branch
 
 **Actions**:
-1. Create the release branch `release/<version>` from `develop` using the git MCP server.
-2. Notify `technical-writer` of the branch name via `SendMessage`.
+1. Create the release branch from `develop` using the git MCP server. Branch naming follows `git-conventions.md` (i.e. `release/<version>`).
+2. Notify the team of the branch name via `SendMessage`.
+
+## Phase 3.5: Release Readiness Check
+
+**Goal**: Confirm CI, observability, and rollback are ready before tagging
+
+**Actions**:
+1. Assign the readiness task to `ci-cd-engineer` via `TaskUpdate`. They verify: CI is green on `develop`, the release workflow is wired correctly, and any manual approval gates are unblocked.
+2. If `sre` is in the team, assign a parallel task: confirm runbooks exist for new services/endpoints, alerts are wired, and a written rollback plan exists for any infrastructure or schema changes.
+3. Surface readiness issues to the user. Do **not** proceed to changelog/merge until the user accepts any open issues.
 
 ## Phase 4: Changelog & Version
 
@@ -52,8 +63,8 @@ You are the orchestrator of a release. Coordinate a team to produce a clean rele
 **Goal**: Clean up the team before the merge steps
 
 **Actions**:
-1. Send `{type: "shutdown_request"}` via `SendMessage` to `technical-writer`.
-2. Call `TeamDelete` once the teammate has shut down.
+1. Send `{type: "shutdown_request"}` via `SendMessage` to each active teammate.
+2. Call `TeamDelete` once all teammates have shut down.
 
 ## Phase 6: Merge & Tag
 
