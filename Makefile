@@ -64,7 +64,8 @@ aur:
 # --------------------------------------------------------------------------
 update:
 	@echo "Updating all packages (official repos + AUR)..."
-	@paru -Syu
+	@pacman -Syu
+	@paru -Sua
 
 # --------------------------------------------------------------------------
 # cfg — Deploy config files to their absolute paths on the filesystem.
