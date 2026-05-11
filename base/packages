@@ -38,8 +38,8 @@ ghostty
 xwayland-satellite
 nvm
 fwupd
-docker
-docker-compose
+podman
+podman-docker
+podman-compose
 ducker
-talosctl
 skaffold
