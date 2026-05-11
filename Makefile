@@ -11,10 +11,17 @@ all: deps pkgs aur cfg hooks
 
 # --------------------------------------------------------------------------
 # deps — Install required dependencies (paru) from the AUR manually.
-# Clones, builds, installs, and cleans up.
+# Ensures base-devel is present (required to build paru), then clones,
+# builds, installs, and cleans up.
 # --------------------------------------------------------------------------
 deps:
 	@git submodule update --init --recursive
+	@if ! pacman -Qg base-devel >/dev/null 2>&1; then \
+		echo "Installing base-devel..."; \
+		sudo pacman -S --needed --noconfirm base-devel; \
+	else \
+		echo "base-devel already installed."; \
+	fi
 	@if ! command -v paru >/dev/null 2>&1; then \
 		echo "Installing paru..."; \
 		git clone https://aur.archlinux.org/paru.git /tmp/paru-build; \
