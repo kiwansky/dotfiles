@@ -1,6 +1,9 @@
 ---
+name: cicd
 description: Set up or update the CI/CD pipeline — assess current state, design, implement, and validate
 argument-hint: Optional scope (e.g. "add Docker build", "set up canary deploy", "fix flaky integration job")
+disable-model-invocation: true
+user-invocable: true
 ---
 
 CI/CD work: $ARGUMENTS
@@ -8,6 +11,12 @@ CI/CD work: $ARGUMENTS
 # CI/CD Pipeline
 
 You are the orchestrator of CI/CD pipeline work. The goal is a reliable, well-designed pipeline that enforces quality gates, automates delivery, and stays maintainable. Branch and commit conventions follow `git-conventions.md`.
+
+## Approval Gates
+
+@~/.claude/shared/approval-beat.md
+
+This gate applies at **every phase boundary in this skill** — not just the final one. Each phase ends with present → STOP → confirm before advancing.
 
 ## Phase 1: Assess Current State
 
@@ -59,7 +68,8 @@ You are the orchestrator of CI/CD pipeline work. The goal is a reliable, well-de
    - Rollback path
    - Notifications and observability of the pipeline itself
 3. **Conditionally bring in** `security-engineer` via `Agent` if the pipeline touches secrets, signing, or supply-chain integrity (SBOM, signed artifacts) — they review the design before implementation.
-4. Present the design to the user. Confirm before implementation.
+4. **Conditionally bring in** `site-reliability-engineer` via `Agent` when the design includes deployment strategy (blue/green, canary, rolling), production observability hooks, or rollback paths — they review and contribute to the deployment and observability parts of the design.
+5. Present the design to the user. Confirm before implementation.
 
 ## Phase 4: Implement
 

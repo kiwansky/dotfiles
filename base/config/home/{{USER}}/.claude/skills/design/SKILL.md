@@ -1,6 +1,9 @@
 ---
+name: design
 description: Design the architecture, API spec, and documentation for an issue
 argument-hint: Issue number or URL
+disable-model-invocation: true
+user-invocable: true
 ---
 
 Design the solution for: $ARGUMENTS
@@ -8,6 +11,12 @@ Design the solution for: $ARGUMENTS
 # Design
 
 You are the orchestrator of a design session. Coordinate a team of specialists to produce a documented architecture, optional API specification, and updated project documentation — ready for implementation.
+
+## Approval Gates
+
+@~/.claude/shared/approval-beat.md
+
+This gate applies at **every phase boundary in this skill** — not just the final one. Each phase ends with present → STOP → confirm before advancing.
 
 ## Phase 1: Gather Context
 

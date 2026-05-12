@@ -1,6 +1,9 @@
 ---
+name: roadmap
 description: Build or refresh a horizon-based roadmap (Now / Next / Later) tied to product vision and strategic pillars
 argument-hint: Optional time horizon or scope (e.g. "Q3 2026", "platform pillar")
+disable-model-invocation: true
+user-invocable: true
 ---
 
 Roadmap: $ARGUMENTS
@@ -10,6 +13,12 @@ Roadmap: $ARGUMENTS
 You are the orchestrator of roadmap planning. The goal is a **horizon-based** roadmap (Now / Next / Later — *not* a Gantt chart) that ties day-to-day work to the product vision and strategic pillars. A roadmap is a *bet*, not a *promise* — communicate it as such.
 
 Roadmap planning sits between `/product-vision` (3–5 year direction) and `/refine` (a specific story made implementation-ready). Run it quarterly or whenever priorities shift materially.
+
+## Approval Gates
+
+@~/.claude/shared/approval-beat.md
+
+This gate applies at **every phase boundary in this skill** — not just the final one. Each phase ends with present → STOP → confirm before advancing.
 
 ## Phase 1: Establish Inputs
 
@@ -43,7 +52,7 @@ Roadmap planning sits between `/product-vision` (3–5 year direction) and `/ref
 2. Spawn:
    - `name: "product-manager"`, `subagent_type: "product-manager"` — leads, balances strategic value.
    - `name: "software-architect"`, `subagent_type: "software-architect"` — sanity-checks feasibility, sequencing, technical dependencies.
-   - `name: "sre"`, `subagent_type: "sre"` — surfaces operational debt that should be on the roadmap.
+   - `name: "site-reliability-engineer"`, `subagent_type: "site-reliability-engineer"` — surfaces operational debt that should be on the roadmap.
    - `name: "security-engineer"`, `subagent_type: "security-engineer"` — surfaces security debt that should be on the roadmap.
 
 ## Phase 4: Themes & Bets
@@ -55,7 +64,7 @@ Roadmap planning sits between `/product-vision` (3–5 year direction) and `/ref
    - Map open issues, in-flight work, and discovery outputs to the strategic pillars from `vision.md`.
    - Identify themes ("expand into X", "reduce time-to-first-value", "improve reliability of Y") rather than feature lists.
    - For each theme, identify the **bet**: what we believe, what's at stake, and how we'd know it worked.
-2. The `sre` and `security-engineer` contribute non-product themes (reliability, dependency hygiene, threat-model gaps) — these go on the roadmap too.
+2. The `site-reliability-engineer` and `security-engineer` contribute non-product themes (reliability, dependency hygiene, threat-model gaps) — these go on the roadmap too.
 3. The `software-architect` flags themes whose technical sequencing locks ordering (e.g. "we can't do B until A").
 
 ## Phase 5: Prioritize into Now / Next / Later

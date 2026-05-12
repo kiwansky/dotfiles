@@ -1,6 +1,9 @@
 ---
+name: onboard
 description: Generate or refresh contributor onboarding docs — CONTRIBUTING.md, dev-setup, testing, code-of-conduct, README onboarding section
 argument-hint: Optional scope (e.g. "frontend", "all", or "fix gaps")
+disable-model-invocation: true
+user-invocable: true
 ---
 
 Onboarding docs: $ARGUMENTS
@@ -8,6 +11,12 @@ Onboarding docs: $ARGUMENTS
 # Onboarding
 
 You are the orchestrator of a contributor-onboarding documentation pass. The goal is that a new contributor can clone the repo, get to a productive local environment, run tests, and submit a PR — without needing to ask anyone. Branch and commit conventions follow `git-conventions.md`.
+
+## Approval Gates
+
+@~/.claude/shared/approval-beat.md
+
+This gate applies at **every phase boundary in this skill** — not just the final one. Each phase ends with present → STOP → confirm before advancing.
 
 ## Phase 1: Inventory & Gap Analysis
 
@@ -40,9 +49,11 @@ You are the orchestrator of a contributor-onboarding documentation pass. The goa
 1. Use `TeamCreate` with `team_name: "onboard-<date>"`.
 2. Spawn:
    - `name: "technical-writer"`, `subagent_type: "technical-writer"` — primary author
-3. **Conditionally** spawn for review of their domains:
-   - `name: "ci-cd-engineer"`, `subagent_type: "ci-cd-engineer"` — verifies the documented setup actually matches what CI does
-   - `name: "security-engineer"`, `subagent_type: "security-engineer"` — reviews `SECURITY.md` and any disclosure / vulnerability-reporting docs
+3. **Conditionally include**:
+   - `name: "ci-cd-engineer"`, `subagent_type: "ci-cd-engineer"` — verifies the documented setup actually matches what CI does.
+   - `name: "site-reliability-engineer"`, `subagent_type: "site-reliability-engineer"` — when the onboarding set should include an observability / dashboards / oncall-rotation orientation for new contributors.
+4. **One-off consultations** (spawn via `Agent` outside the team, not as a member):
+   - `security-engineer` — when authoring or reviewing `SECURITY.md` or vulnerability-disclosure docs. Spawn once, take their review, close them out — they do not need persistent team membership for this scope.
 
 ## Phase 4: Author the Onboarding Set
 
@@ -86,6 +97,15 @@ You are the orchestrator of a contributor-onboarding documentation pass. The goa
    - Use a recognized template (Contributor Covenant 2.1) unless the project has an established alternative
 
 2. The writer must **verify each command actually works** by running it (or having the user run it) before publishing. Onboarding docs that are wrong are worse than missing.
+
+## Phase 4.5: Security Doc Review (if applicable)
+
+**Goal**: One-off security-engineer review of `SECURITY.md` and vulnerability-disclosure language
+
+**Actions**:
+1. If `SECURITY.md` is in scope this pass: spawn a `security-engineer` via `Agent` (not in the team) with the draft as context.
+2. Apply the security-engineer's feedback to the doc.
+3. Done — close out the one-off agent.
 
 ## Phase 5: Validation
 

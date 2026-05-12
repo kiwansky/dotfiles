@@ -1,6 +1,9 @@
 ---
+name: refine
 description: Refine an existing issue or create a new one — user stories, acceptance criteria, UX notes, and architectural considerations
 argument-hint: Issue number, URL, or feature description
+disable-model-invocation: true
+user-invocable: true
 ---
 
 Refine: $ARGUMENTS
@@ -10,6 +13,12 @@ Refine: $ARGUMENTS
 You are the orchestrator of a refinement session. Coordinate a team of specialists to produce a well-defined issue with user stories, acceptance criteria, and early design considerations — ready for architecture and implementation.
 During story refinement, put acceptance criteria and other refinement outputs directly into the issue body — do not add them as separate comments.
 
+## Approval Gates
+
+@~/.claude/shared/approval-beat.md
+
+This gate applies at **every phase boundary in this skill** — not just the final one. Each phase ends with present → STOP → confirm before advancing.
+
 ## Phase 1: Gather Context
 
 **Goal**: Understand what needs to be refined before spinning up the team
@@ -18,7 +27,7 @@ During story refinement, put acceptance criteria and other refinement outputs di
 1. If `$ARGUMENTS` is an issue number or URL, read it via the project management MCP server. Otherwise treat it as a feature description.
 2. Ask the user clarifying questions about scope, actors, and goals.
 3. Confirm understanding before proceeding.
-4. Ask the user: Does this feature require UI changes? Does it touch core architecture? (Determines team composition.)
+4. Ask the user: Does this feature require UI changes? Does it touch core architecture? Answers determine whether `ui-ux-engineer` and/or `software-architect` join the team.
 
 ## Phase 2: Assemble the Team
 
@@ -29,6 +38,8 @@ During story refinement, put acceptance criteria and other refinement outputs di
 2. Spawn teammates via the `Agent` tool with the `team_name` and a `name` for each:
    - `name: "product-owner"`, `subagent_type: "product-owner"` — always included
    - `name: "requirements-engineer"`, `subagent_type: "requirements-engineer"` — always included
+   - `name: "ui-ux-engineer"`, `subagent_type: "ui-ux-engineer"` — only when UX guidance is needed for this story.
+   - `name: "software-architect"`, `subagent_type: "software-architect"` — only when early architectural feasibility input is needed (don't duplicate `/design` here — this is a sanity check, not the architecture pass).
 3. Create tasks in the team task list using `TaskCreate` for each phase below.
 
 ## Phase 3: User Stories
@@ -49,6 +60,24 @@ During story refinement, put acceptance criteria and other refinement outputs di
 1. Assign the acceptance criteria task to `requirements-engineer` via `TaskUpdate`. Include the approved user stories as context via `SendMessage`.
 2. The `requirements-engineer` will: write Gherkin or bullet-format criteria covering happy paths, error paths, and edge cases, and update the issue.
 3. Review with the user and iterate via `SendMessage` as needed.
+
+## Phase 4.5: Early UX Notes (if applicable)
+
+**Goal**: Capture UX guidance the implementer will need — without crossing into `/design`
+
+**Actions**:
+1. If `ui-ux-engineer` is in the team: assign a lightweight UX-notes task with the approved stories and acceptance criteria as context.
+2. The agent produces a short note on the issue: primary user flow, key states, accessibility implications, and any open UX questions to resolve in `/design`. **No wireframes, no full screen specs** — that's `/design`'s job.
+3. Review with the user. Iterate via `SendMessage` if needed.
+
+## Phase 4.7: Early Architecture Notes (if applicable)
+
+**Goal**: Surface feasibility concerns before `/design`
+
+**Actions**:
+1. If `software-architect` is in the team: assign a lightweight feasibility note with the approved stories and acceptance criteria as context.
+2. The agent produces a short note on the issue: where the change likely lands in the codebase, any architectural risks or load-bearing assumptions, and questions to resolve in `/design`. **No ADRs, no full architecture doc** — that's `/design`'s job.
+3. Review with the user. Iterate via `SendMessage` if needed.
 
 ## Phase 5: Shutdown & Summary
 

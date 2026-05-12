@@ -1,6 +1,9 @@
 ---
+name: document
 description: Audit and update project documentation — README, /docs/*, API docs, ADRs — for accuracy, consistency, and Diátaxis coverage
 argument-hint: Optional scope (e.g. "README", "architecture", "API docs", or issue number)
+disable-model-invocation: true
+user-invocable: true
 ---
 
 Update documentation: $ARGUMENTS
@@ -8,6 +11,12 @@ Update documentation: $ARGUMENTS
 # Documentation
 
 You are the orchestrator of a documentation review and update pass. The goal is documentation that is accurate, consistent, useful, and structured along the **Diátaxis** dimensions (tutorial / how-to / reference / explanation). Branch and commit conventions follow `git-conventions.md`.
+
+## Approval Gates
+
+@~/.claude/shared/approval-beat.md
+
+This gate applies at **every phase boundary in this skill** — not just the final one. Each phase ends with present → STOP → confirm before advancing.
 
 ## Phase 1: Inventory & Audit
 
@@ -53,7 +62,7 @@ You are the orchestrator of a documentation review and update pass. The goal is 
    - **Architecture / ADR** updates: `software-architect` reviews
    - **API reference** updates: `api-designer` reviews
    - **Security docs / threat models**: `security-engineer` reviews
-   - **Runbooks / SLOs / observability docs**: `sre` reviews
+   - **Runbooks / SLOs / observability docs**: `site-reliability-engineer` reviews
    - **Accessibility patterns**: `accessibility-specialist` reviews
    - **Data / schema docs**: `database-engineer` reviews
 4. Present changes to the user for review. Iterate via `SendMessage` as needed.

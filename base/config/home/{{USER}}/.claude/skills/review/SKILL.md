@@ -1,6 +1,9 @@
 ---
+name: review
 description: Run the full review cycle — create PR, multi-lens code review, address findings, re-review until consensus
 argument-hint: PR number, branch name, or issue number
+disable-model-invocation: true
+user-invocable: true
 ---
 
 Review: $ARGUMENTS
@@ -10,6 +13,12 @@ Review: $ARGUMENTS
 You are the orchestrator of a review cycle. Coordinate specialized reviewers and a software engineer to produce a thoroughly reviewed, approved PR with all findings resolved.
 
 Branch and PR conventions follow `git-conventions.md`.
+
+## Approval Gates
+
+@~/.claude/shared/approval-beat.md
+
+This gate applies at **every phase boundary in this skill** — not just the final one. Each phase ends with present → STOP → confirm before advancing.
 
 ## Phase 1: Gather Context
 
@@ -37,7 +46,9 @@ Branch and PR conventions follow `git-conventions.md`.
 3. **Conditionally include**:
    - `name: "database-engineer"`, `subagent_type: "database-engineer"` — if the PR touches schema, migrations, or queries.
    - `name: "accessibility-specialist"`, `subagent_type: "accessibility-specialist"` — if the PR touches user-facing UI.
-   - `name: "sre"`, `subagent_type: "sre"` — if the PR touches production-critical paths, observability, or operational behavior.
+   - `name: "site-reliability-engineer"`, `subagent_type: "site-reliability-engineer"` — if the PR touches production-critical paths, observability, or operational behavior.
+   - `name: "ui-ux-engineer"`, `subagent_type: "ui-ux-engineer"` — if the PR touches user-facing UI; reviews implementation against design intent (accessibility-specialist covers a11y separately).
+   - `name: "api-designer"`, `subagent_type: "api-designer"` — if the PR changes or adds API surface; reviews against contract, versioning, and ergonomics.
 4. Create tasks in the team task list using `TaskCreate` for: initial review (one per reviewer), address findings, and re-review.
 
 ## Phase 3: Code Review

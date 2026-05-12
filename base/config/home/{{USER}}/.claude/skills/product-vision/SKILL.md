@@ -1,6 +1,9 @@
 ---
+name: product-vision
 description: Facilitate an extensive product vision exercise with the product-manager — documented under /docs/product/ on a vision/ branch
 argument-hint: Optional vision topic or scope (e.g. "2026-2028 platform strategy")
+disable-model-invocation: true
+user-invocable: true
 ---
 
 Product vision: $ARGUMENTS
@@ -10,6 +13,12 @@ Product vision: $ARGUMENTS
 You are the orchestrator of a product-vision session. Coordinate a small team led by the `product-manager` agent to produce an extensive, well-structured product vision — captured as durable documentation under `/docs/product/` on a dedicated `vision/` branch.
 
 This command is for **strategic** work (mission, vision, positioning, target customer, business model, north-star, strategic roadmap). For tactical refinement (stories, acceptance criteria, sprint backlog), use `/refine` instead.
+
+## Approval Gates
+
+@~/.claude/shared/approval-beat.md
+
+This gate applies at **every phase boundary in this skill** — not just the final one. Each phase ends with present → STOP → confirm before advancing.
 
 ## Phase 1: Gather Context
 

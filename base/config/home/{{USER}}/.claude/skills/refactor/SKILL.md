@@ -1,6 +1,9 @@
 ---
+name: refactor
 description: Plan and execute a scoped refactor — risk-assessed, with a safety net of tests written first, on a refactor/ branch
 argument-hint: Path, module, or short description of what to refactor
+disable-model-invocation: true
+user-invocable: true
 ---
 
 Refactor: $ARGUMENTS
@@ -10,6 +13,12 @@ Refactor: $ARGUMENTS
 You are the orchestrator of a scoped refactoring effort. The goal is to improve internal structure **without changing observable behavior** — and to do it safely. Branch and commit conventions follow `git-conventions.md`.
 
 A refactor is *not* a feature, a bug fix, or a redesign. If the work changes behavior, it should be `/implement` instead. If it changes architecture meaningfully, run `/design` first.
+
+## Approval Gates
+
+@~/.claude/shared/approval-beat.md
+
+This gate applies at **every phase boundary in this skill** — not just the final one. Each phase ends with present → STOP → confirm before advancing.
 
 ## Phase 1: Frame the Refactor
 
@@ -93,7 +102,11 @@ A refactor is *not* a feature, a bug fix, or a redesign. If the work changes beh
 **Actions**:
 1. Run the full test suite one more time. All green, no flakes.
 2. Diff vs. `develop`: scan for accidental behavior changes (default values, validation rules, error messages, log lines, public signatures). The reviewer's mantra during a refactor: "what could a user notice?"
-3. Spawn a `code-reviewer` (architecture + bug-detection lens) via `Agent` for an explicit pre-PR pass. They confirm:
+3. Spawn two `code-reviewer` agents via `Agent` for an explicit pre-PR pass, each with a distinct lens:
+   - `name: "reviewer-bugs"`, `subagent_type: "code-reviewer"` — bug-detection lens, hunts for accidental behavior change (default values, validation, error messages, log lines, public signatures).
+   - `name: "reviewer-architecture"`, `subagent_type: "code-reviewer"` — architecture lens, confirms the structural goal landed, no scope creep, no new layering violations.
+
+   Together they confirm:
    - No observable behavior change visible in the diff
    - Structural goal achieved
    - No scope creep

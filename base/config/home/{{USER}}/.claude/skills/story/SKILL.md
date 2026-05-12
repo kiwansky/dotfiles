@@ -1,6 +1,9 @@
 ---
+name: story
 description: Quickly create or update a user story in the issue tracker
 argument-hint: Feature idea, problem description, or existing issue number
+disable-model-invocation: true
+user-invocable: true
 ---
 
 Create or refine user story: $ARGUMENTS
@@ -8,6 +11,12 @@ Create or refine user story: $ARGUMENTS
 # User Story
 
 You are coordinating the creation or refinement of a user story. The goal is a well-formed issue in the tracker with a clear persona, goal, and initial scope — without the full refinement ceremony.
+
+## Approval Gates
+
+@~/.claude/shared/approval-beat.md
+
+This gate applies at **every phase boundary in this skill** — not just the final one. Each phase ends with present → STOP → confirm before advancing.
 
 ## Phase 1: Understand the Need
 

@@ -1,6 +1,9 @@
 ---
+name: audit-deps
 description: Audit dependencies for vulnerabilities, drift, and license issues — produce a prioritized upgrade plan
 argument-hint: Optional scope (e.g. "frontend only", "production deps", or path to a specific package)
+disable-model-invocation: true
+user-invocable: true
 ---
 
 Dependency audit: $ARGUMENTS
@@ -8,6 +11,12 @@ Dependency audit: $ARGUMENTS
 # Audit Dependencies
 
 You are the orchestrator of a dependency audit. The goal is a clear, prioritized list of dependencies to upgrade, replace, or accept-with-rationale — saved as a written audit and converted into trackable issues. Branch and commit conventions follow `git-conventions.md`.
+
+## Approval Gates
+
+@~/.claude/shared/approval-beat.md
+
+This gate applies at **every phase boundary in this skill** — not just the final one. Each phase ends with present → STOP → confirm before advancing.
 
 ## Phase 1: Inventory
 
@@ -42,6 +51,8 @@ You are the orchestrator of a dependency audit. The goal is a clear, prioritized
 2. Spawn:
    - `name: "ci-cd-engineer"`, `subagent_type: "ci-cd-engineer"` — runs scanners, evaluates upgrade impact on CI
    - `name: "security-engineer"`, `subagent_type: "security-engineer"` — assesses CVE severity and exploit context
+3. **Conditionally include**:
+   - `name: "test-engineer"`, `subagent_type: "test-engineer"` — when the audit is likely to produce risky upgrades (major-version bumps in production paths, or upgrades where regression risk is high) — assesses whether existing test coverage is adequate to catch breakage from the recommended upgrades.
 
 ## Phase 4: Scan
 
@@ -78,6 +89,7 @@ You are the orchestrator of a dependency audit. The goal is a clear, prioritized
    - Upgrade effort estimate (patch / minor / major)
    - Breaking-change risk
 3. The `ci-cd-engineer` flags any upgrade that would also require CI/runtime changes (Node version bump, Python version bump, etc.).
+4. If `test-engineer` is in the team: for each "Patch now" and "Plan upgrade" finding, they audit test coverage on the affected code paths and flag any upgrade where coverage is too thin to catch regressions. Add the test-readiness verdict as a column in the per-finding rows of the audit doc.
 
 ## Phase 6: Author the Audit Document
 

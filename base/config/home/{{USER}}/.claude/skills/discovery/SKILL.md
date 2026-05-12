@@ -1,6 +1,9 @@
 ---
+name: discovery
 description: Validate a single feature or opportunity before committing — jobs-to-be-done, competitive scan, problem framing, and an explicit go/no-go recommendation
 argument-hint: Feature idea, opportunity description, or issue number
+disable-model-invocation: true
+user-invocable: true
 ---
 
 Discovery: $ARGUMENTS
@@ -10,6 +13,12 @@ Discovery: $ARGUMENTS
 You are the orchestrator of a lightweight discovery exercise. The goal is to *validate the problem* — not the solution — before the team commits engineering effort. This is the cheaper, faster cousin of `/product-vision`: a single feature/opportunity, days not weeks. Output: a written recommendation to **build / build small / postpone / drop**.
 
 Discovery sits between `/story` (capture an idea) and `/refine` (make it implementation-ready). It is optional but highly recommended for ambitious or ambiguous work.
+
+## Approval Gates
+
+@~/.claude/shared/approval-beat.md
+
+This gate applies at **every phase boundary in this skill** — not just the final one. Each phase ends with present → STOP → confirm before advancing.
 
 ## Phase 1: Frame the Question
 

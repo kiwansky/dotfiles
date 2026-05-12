@@ -1,6 +1,9 @@
 ---
+name: triage
 description: Triage incoming bugs or new issues — reproduce, classify severity, label, link related, and route to the right next command
 argument-hint: Issue number, URL, or bug description
+disable-model-invocation: true
+user-invocable: true
 ---
 
 Triage: $ARGUMENTS
@@ -8,6 +11,12 @@ Triage: $ARGUMENTS
 # Triage
 
 You are the orchestrator of an issue triage. The goal is a labelled, prioritised, routed issue with enough context that the next person picking it up can act immediately. Conventions follow `project-conventions.md` and `git-conventions.md`.
+
+## Approval Gates
+
+@~/.claude/shared/approval-beat.md
+
+This gate applies at **every phase boundary in this skill** — not just the final one. Each phase ends with present → STOP → confirm before advancing.
 
 ## Phase 1: Read the Report
 
@@ -28,7 +37,9 @@ You are the orchestrator of an issue triage. The goal is a labelled, prioritised
 **Goal**: Verify the issue is real and gather enough signal to classify
 
 **Actions**:
-1. Spawn a `code-reviewer` via `Agent` for root-cause hunch (they read code with the bug-detection lens).
+1. Spawn the triage leads via `Agent`:
+   - `name: "product-owner"`, `subagent_type: "product-owner"` — leads classification, severity, milestone, and disposition.
+   - `name: "reviewer-bugs"`, `subagent_type: "code-reviewer"` — bug-detection lens, hunts a root-cause hypothesis from the affected code.
 2. Launch an `Explore` agent **in parallel** to find:
    - Recently touched files in the affected area (last 30 days of `git log`)
    - Existing related issues (search by keyword via GitHub MCP)
@@ -41,7 +52,8 @@ You are the orchestrator of an issue triage. The goal is a labelled, prioritised
 **Goal**: Apply consistent labels, severity, and ownership
 
 **Actions**:
-1. **Severity** (label one):
+1. Assign the classification task to `product-owner` via `SendMessage`, sending the Phase 2 findings. The product-owner applies, in order:
+   **Severity** (label one):
    - `sev/critical` — production down, data loss, security breach in progress
    - `sev/high` — major feature broken for many users, no good workaround
    - `sev/medium` — feature broken with workaround, or affecting some users
@@ -58,6 +70,7 @@ You are the orchestrator of an issue triage. The goal is a labelled, prioritised
 **Goal**: Route the issue to the next step
 
 **Actions**:
+0. The `product-owner` proposes the disposition based on classification and the bug-detection findings. Present to the user for confirmation before applying any of the following.
 1. If duplicate: close as `duplicate` with `duplicate_of`, comment linking to the canonical issue.
 2. If feature request masquerading as a bug: relabel and suggest `/story` or `/discovery`.
 3. If unclear/needs reporter: leave open, comment with the specific information requested, label `needs-info`.

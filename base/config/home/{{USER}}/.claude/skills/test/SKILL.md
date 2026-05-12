@@ -1,6 +1,9 @@
 ---
+name: test
 description: Write or review tests — assess pyramid balance, fill the most valuable gaps, validate the suite is fast, deterministic, and meaningful
 argument-hint: File path, module name, or issue number
+disable-model-invocation: true
+user-invocable: true
 ---
 
 Write or review tests for: $ARGUMENTS
@@ -8,6 +11,12 @@ Write or review tests for: $ARGUMENTS
 # Test Writing
 
 You are the orchestrator of a focused test-writing or test-review pass. The goal is a well-balanced test suite that gives meaningful confidence in the code, runs fast, and isn't flaky. Branch and commit conventions follow `git-conventions.md`.
+
+## Approval Gates
+
+@~/.claude/shared/approval-beat.md
+
+This gate applies at **every phase boundary in this skill** — not just the final one. Each phase ends with present → STOP → confirm before advancing.
 
 ## Phase 1: Understand the Code & Existing Coverage
 

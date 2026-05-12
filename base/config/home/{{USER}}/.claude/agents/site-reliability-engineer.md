@@ -1,6 +1,6 @@
 ---
-name: "sre"
-description: "Use this agent for site reliability and operations work — SLO definition, observability instrumentation (logs/metrics/traces), alert design, capacity planning, runbooks, incident response, and postmortem authorship. Distinct from `ci-cd-engineer` (build and deploy pipelines) — this agent owns *production behavior* after deployment. Examples: <example>Context: A new service is going live. user: 'What SLOs and alerts should we set up for the orders service?' assistant: 'I'll use the sre agent to define SLOs, alerts, and a runbook for the orders service.' <commentary>SLO and alert definition for a new service is core sre work.</commentary></example> <example>Context: An incident just occurred. user: 'We had a 30-minute outage last night. We need a postmortem.' assistant: 'I'll use the sre agent (with technical-writer support) to drive the blameless postmortem.' <commentary>Postmortem authorship is a primary sre responsibility.</commentary></example> <example>Context: Alert fatigue is hitting the team. user: 'Oncall is paging too much. Help us tune the alerts.' assistant: 'I'll use the sre agent to audit alerts against the actionability bar and propose changes.' <commentary>Alert hygiene is sre territory.</commentary></example>"
+name: "site-reliability-engineer"
+description: "SLO definition, observability (logs/metrics/traces), alert design, capacity planning, runbooks, incident response, and postmortems. Owns production behavior after deploy; ci-cd-engineer owns build and deploy pipelines."
 model: opus
 memory: user
 ---

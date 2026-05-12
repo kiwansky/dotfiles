@@ -1,6 +1,9 @@
 ---
+name: postmortem
 description: Author a blameless postmortem for a production incident — timeline, root causes, action items — on a postmortem/ branch
 argument-hint: Incident slug or short description (e.g. "2026-04-22-checkout-outage")
+disable-model-invocation: true
+user-invocable: true
 ---
 
 Postmortem: $ARGUMENTS
@@ -8,6 +11,12 @@ Postmortem: $ARGUMENTS
 # Postmortem
 
 You are the orchestrator of a blameless postmortem. The goal is a clear, written record that explains what happened, why, and what we will change — generating concrete action items in the issue tracker. Postmortems aim at *systems*, never at *people*.
+
+## Approval Gates
+
+@~/.claude/shared/approval-beat.md
+
+This gate applies at **every phase boundary in this skill** — not just the final one. Each phase ends with present → STOP → confirm before advancing.
 
 ## Phase 1: Frame the Incident
 
@@ -38,21 +47,21 @@ You are the orchestrator of a blameless postmortem. The goal is a clear, written
 **Actions**:
 1. Use `TeamCreate` with `team_name: "postmortem-<slug>"`.
 2. **Always include**:
-   - `name: "sre"`, `subagent_type: "sre"` — owns the postmortem.
+   - `name: "site-reliability-engineer"`, `subagent_type: "site-reliability-engineer"` — owns the postmortem.
    - `name: "technical-writer"`, `subagent_type: "technical-writer"` — polishes the narrative.
 3. **Conditionally include based on the incident**:
    - `name: "security-engineer"`, `subagent_type: "security-engineer"` — if security incident or near-miss.
    - `name: "database-engineer"`, `subagent_type: "database-engineer"` — if data layer involved (locking, replication, migration, corruption).
    - `name: "ci-cd-engineer"`, `subagent_type: "ci-cd-engineer"` — if deploy pipeline contributed.
-   - `name: "code-reviewer"`, `subagent_type: "code-reviewer"` — if a specific code defect is suspected.
+   - `name: "reviewer-bugs"`, `subagent_type: "code-reviewer"` — bug-detection lens; if a specific code defect is suspected as a direct or contributing cause.
 
 ## Phase 4: Build the Timeline
 
 **Goal**: Get an honest, UTC-timestamped sequence of events
 
 **Actions**:
-1. Assign the timeline task to `sre`. Send the framing context.
-2. The `sre` will collect:
+1. Assign the timeline task to `site-reliability-engineer`. Send the framing context.
+2. The `site-reliability-engineer` will collect:
    - Alert firings (with timestamps)
    - Detection time (when did a human first know?)
    - Status updates posted during the incident
@@ -78,7 +87,7 @@ You are the orchestrator of a blameless postmortem. The goal is a clear, written
 **Goal**: Produce the document at `/docs/postmortems/<slug>.md`
 
 **Actions**:
-1. Assign drafting to `sre`. Use the structure from `observability-standards.md`:
+1. Assign drafting to `site-reliability-engineer`. Use the structure from `observability-standards.md`:
    ```
    ## [Incident title]
 
