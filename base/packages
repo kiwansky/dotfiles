@@ -37,10 +37,9 @@ ghostty
 xwayland-satellite
 nvm
 fwupd
-podman
-podman-docker
-podman-compose
+docker
+docker-compose
 ducker
-skaffold
+tilt
 obsidian
 npm
