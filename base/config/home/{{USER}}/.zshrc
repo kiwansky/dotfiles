@@ -128,3 +128,8 @@ export PATH=$PATH:$(go env GOPATH)/bin
 
 # Initialize nvm
 . /usr/share/nvm/init-nvm.sh
+
+# Setup Proton Pass SSH Agent
+export SSH_AUTH_SOCK="$HOME/.ssh/proton-pass-agent.sock"
+export PROTON_PASS_LINUX_KEYRING=dbus
+export PROTON_PASS_KEY_PROVIDER=keyring
