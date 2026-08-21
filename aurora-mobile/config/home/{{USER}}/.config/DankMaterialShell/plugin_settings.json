@@ -1,22 +1,4 @@
 {
-  "linuxWallpaperEngine": {
-    "enabled": true,
-    "monitorPlaylists": {},
-    "monitorScenes": {
-      "eDP-2": "3323598007"
-    },
-    "generateStaticWallpaper": true,
-    "sceneSettings": {
-      "3323598007": {
-        "scaling": "fill"
-      },
-      "sceneSettings": {
-        "3323598007": {
-          "scaling": "fill"
-        }
-      }
-    }
-  },
   "developerUtilities": {
     "enabled": true
   }
