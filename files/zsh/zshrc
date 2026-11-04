@@ -1,0 +1,18 @@
+# ~/.zshrc — managed by decman (modules/zsh.py)
+# Equivalent of the home-manager programs.zsh block.
+
+export ZSH=/usr/share/oh-my-zsh
+export ZSH_CACHE_DIR="$HOME/.cache/oh-my-zsh"
+[[ -d "$ZSH_CACHE_DIR/completions" ]] || mkdir -p "$ZSH_CACHE_DIR/completions"
+
+ZSH_THEME="lambda"
+plugins=()
+
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE="$HOME/.zsh_history"
+
+source "$ZSH/oh-my-zsh.sh"
+
+# Must stay at the end of .zshrc.
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

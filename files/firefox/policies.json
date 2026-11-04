@@ -1,0 +1,11 @@
+{
+  "policies": {
+    "OfferToSaveLogins": false,
+    "ExtensionSettings": {
+      "proton-pass@proton.ch": {
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/proton-pass/latest.xpi",
+        "installation_mode": "force_installed"
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+[user]
+	email = "keven.iwansky@gmail.com"
+	name = "Keven Yannic Iwansky"
+[init]
+	defaultBranch = "main"

@@ -1,0 +1,15 @@
+[connection]
+id=Wired static
+uuid=7e2f1c3a-9b4d-4c5e-8f6a-1d2e3c4b5a69
+type=ethernet
+autoconnect=true
+
+[ethernet]
+
+[ipv4]
+method=manual
+address1=192.168.10.30/24,192.168.10.1
+dns=192.168.10.15;
+
+[ipv6]
+method=auto
