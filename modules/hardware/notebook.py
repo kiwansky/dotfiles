@@ -2,8 +2,9 @@
 
 The AMD equivalent of the desktop's hardware module:
   - amd-ucode microcode
-  - mesa/vulkan-radeon (plus lib32 for Steam) for the GPU
-  - libva-mesa-driver for hardware video decode
+  - mesa/vulkan-radeon (plus lib32 for Steam) for the GPU; mesa includes the
+    VAAPI video decode drivers (the separate libva-mesa-driver package was
+    merged into mesa)
   - power-profiles-daemon for laptop power management; the Dux Shell battery
     widget integrates with it
 """
@@ -25,7 +26,6 @@ class NotebookHardware(Module):
             "lib32-mesa",
             "vulkan-radeon",
             "lib32-vulkan-radeon",
-            "libva-mesa-driver",
             "power-profiles-daemon",
         }
 
