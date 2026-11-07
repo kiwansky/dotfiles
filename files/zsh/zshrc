@@ -14,5 +14,8 @@ HISTFILE="$HOME/.zsh_history"
 
 source "$ZSH/oh-my-zsh.sh"
 
+# SSH agent socket (systemd socket activation)
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
 # Must stay at the end of .zshrc.
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
