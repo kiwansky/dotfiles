@@ -41,8 +41,8 @@ files/                     the config files / dotfiles
 | `gaming`            | steam, proton-ge-custom-bin (AUR)                            | `programs.steam` + `boot.kernelModules = [hid-playstation]`            |
 | `devtools`          | ansible, python-proxmoxer, opencode-bin (AUR) | home-manager `programs.opencode`                         |
 | `apps`              | signal-desktop, bambustudio-bin (AUR)                        | home-manager signal-desktop + bambu-studio                             |
-| `hardware/kyi-ws`  | intel-ucode, nvidia-open(+utils, lib32), egl-wayland         | the kyi-ws `hardware-configuration.nix` (NVIDIA open, modeset, modules loaded at boot) |
-| `hardware/kyi-nb` | amd-ucode, mesa/vulkan-radeon(+lib32), power-profiles-daemon | the AMD equivalent for kyi-nb                                    |
+| `hardware/kyi_ws`  | intel-ucode, nvidia-open(+utils, lib32), egl-wayland         | the kyi-ws `hardware-configuration.nix` (NVIDIA open, modeset, modules loaded at boot) |
+| `hardware/kyi_nb` | amd-ucode, mesa/vulkan-radeon(+lib32), power-profiles-daemon | the AMD equivalent for kyi-nb                                    |
 
 Note: The project *DankMaterialShell (DMS)* has the new name **Dux** (duxlabs).
 The package `dux-shell` contains the `dms` binary and the `dms.service` user unit.
