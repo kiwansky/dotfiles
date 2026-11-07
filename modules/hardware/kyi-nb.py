@@ -1,6 +1,6 @@
-"""Notebook hardware: AMD CPU + AMD GPU.
+"""kyi-nb hardware: AMD CPU + AMD GPU.
 
-The AMD equivalent of the desktop's hardware module:
+The AMD equivalent of kyi-ws's hardware module:
   - amd-ucode microcode
   - mesa/vulkan-radeon (plus lib32 for Steam) for the GPU; mesa includes the
     VAAPI video decode drivers (the separate libva-mesa-driver package was
@@ -16,7 +16,7 @@ from decman.plugins import pacman, systemd
 class NotebookHardware(Module):
 
     def __init__(self):
-        super().__init__(name="hardware-notebook")
+        super().__init__(name="hardware-kyi-nb")
 
     @pacman.packages
     def pacman_packages(self) -> set[str]:

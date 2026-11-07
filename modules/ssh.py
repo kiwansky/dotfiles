@@ -4,8 +4,8 @@ Installs openssh and starts sshd.service at boot on both machines. The
 drop-in files/ssh/10-key-only.conf turns off password logins, so only
 public keys work. With ``authorized_keys`` set, the module also installs
 that file as ~/.ssh/authorized_keys of the user, so the listed machines
-can log in. The desktop uses files/ssh/authorized_keys, which holds the
-notebook's public key.
+can log in.   kyi-ws uses files/ssh/authorized_keys, which holds the
+  kyi-nb's public key.
 """
 
 import os

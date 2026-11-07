@@ -1,6 +1,6 @@
-"""Desktop hardware: Intel CPU + NVIDIA GPU.
+"""kyi-ws hardware: Intel CPU + NVIDIA GPU.
 
-Replaces hardware-configuration.nix of the desktop:
+Replaces hardware-configuration.nix of kyi-ws:
   - hardware.cpu.intel.updateMicrocode  -> intel-ucode
   - hardware.nvidia (open = true)       -> nvidia-open + nvidia-utils
   - hardware.nvidia.modesetting.enable  -> modprobe.d options
@@ -20,7 +20,7 @@ from modules import files_path
 class DesktopHardware(Module):
 
     def __init__(self):
-        super().__init__(name="hardware-desktop")
+        super().__init__(name="hardware-kyi-ws")
 
     @pacman.packages
     def pacman_packages(self) -> set[str]:

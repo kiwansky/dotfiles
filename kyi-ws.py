@@ -1,7 +1,7 @@
-"""Decman source for the notebook (AMD CPU and GPU, DHCP/Wi-Fi via NetworkManager).
+"""Decman source for kyi-ws (Intel CPU, NVIDIA GPU, static wired IP).
 
 Run with:
-    sudo decman --source /home/kyi/Source/dotfiles/notebook.py
+    sudo decman --source /home/kyi/Source/dotfiles/kyi-ws.py
 """
 
 import os
@@ -28,7 +28,7 @@ from modules.gaming import Gaming
 from modules.ghostty import Ghostty
 from modules.git import Git
 from modules.greeter import Greeter
-from modules.hardware.notebook import NotebookHardware
+from modules.hardware.kyi_ws import DesktopHardware
 from modules.networking import Networking
 from modules.niri import Niri
 from modules.ssh import Ssh
@@ -38,20 +38,20 @@ from modules.zsh import Zsh
 decman.modules += [
     # users first, so files owned by kyi can be installed on a fresh system
     make_user_manager(),
-    Base(hostname="notebook"),
-    NotebookHardware(),
-    Networking(static_wired=False),
-    Ssh(),
+    Base(hostname="kyi-ws"),
+    DesktopHardware(),
+    Networking(static_wired=True),
+    Ssh(authorized_keys=files_path("ssh", "authorized_keys")),  # kyi-nb key
     Bluetooth(),
     Audio(),
     Zsh(),
-    Niri(outputs_kdl=files_path("niri", "outputs-notebook.kdl")),
+    Niri(outputs_kdl=files_path("niri", "outputs-kyi-ws.kdl")),
     DuxShell(),
     Greeter(),
     Ghostty(),
     Firefox(),
     Git(),
-    Gaming(),  # remove this line if you don't want Steam on the notebook
+    Gaming(),
     DevTools(),
     Apps(),
 ]

@@ -8,13 +8,13 @@ Two machines use the same modules. Each machine has its own entry point:
 
 | Entry point   | Machine  | Hardware               | Network                            |
 | ------------- | -------- | ---------------------- | ---------------------------------- |
-| `desktop.py`  | Desktop  | Intel CPU + NVIDIA GPU | Static wired IP (192.168.10.30/24) |
-| `notebook.py` | Notebook | AMD CPU + AMD GPU      | DHCP / Wi-Fi with NetworkManager   |
+| `kyi-ws.py`  | kyi-ws  | Intel CPU + NVIDIA GPU | Static wired IP (192.168.10.30/24) |
+| `kyi-nb.py` | kyi-nb | AMD CPU + AMD GPU      | DHCP / Wi-Fi with NetworkManager   |
 
 ## Layout
 
 ```
-desktop.py / notebook.py   decman sources (one for each machine)
+kyi-ws.py / kyi-nb.py   decman sources (one for each machine)
 modules/                   one Python module for each function; each module
                            keeps the packages, their config files, and their
                            services together
@@ -27,8 +27,8 @@ files/                     the config files / dotfiles
 | ------------------- | ------------------------------------------------------------ | --------------------------------------------------------------------- |
 | `base`              | base, linux, base-devel, sudo, … + `decman` (AUR)            | base system, `time.timeZone`, `i18n.*`, hostname, wheel sudo           |
 | `users`             | —                                                            | `users.users.kyi` (zsh shell, wheel + input groups)                    |
-| `networking`        | networkmanager                                               | `networking.networkmanager`, static `eth0` config (desktop)            |
-| `ssh`               | openssh                                                      | — (new: sshd at boot, key-only logins; the desktop gets `files/ssh/authorized_keys`) |
+| `networking`        | networkmanager                                               | `networking.networkmanager`, static `eth0` config (kyi-ws)            |
+| `ssh`               | openssh                                                      | — (new: sshd at boot, key-only logins; kyi-ws gets `files/ssh/authorized_keys`) |
 | `bluetooth`         | bluez, bluez-utils                                           | `hardware.bluetooth` (powerOnBoot = BlueZ AutoEnable default)          |
 | `audio`             | pipewire(+pulse/alsa), wireplumber, playerctl                | the PipeWire stack for the niri binds (wpctl/playerctl)                |
 | `zsh`               | zsh, zsh-completions, zsh-syntax-highlighting, oh-my-zsh-git | `programs.zsh` + home-manager zsh (theme lambda, hist 10000)           |
@@ -41,15 +41,15 @@ files/                     the config files / dotfiles
 | `gaming`            | steam, proton-ge-custom-bin (AUR)                            | `programs.steam` + `boot.kernelModules = [hid-playstation]`            |
 | `devtools`          | ansible, python-proxmoxer, opencode-bin (AUR) | home-manager `programs.opencode`                         |
 | `apps`              | signal-desktop, bambustudio-bin (AUR)                        | home-manager signal-desktop + bambu-studio                             |
-| `hardware/desktop`  | intel-ucode, nvidia-open(+utils, lib32), egl-wayland         | the desktop `hardware-configuration.nix` (NVIDIA open, modeset, modules loaded at boot) |
-| `hardware/notebook` | amd-ucode, mesa/vulkan-radeon(+lib32), power-profiles-daemon | the AMD equivalent for the notebook                                    |
+| `hardware/kyi-ws`  | intel-ucode, nvidia-open(+utils, lib32), egl-wayland         | the kyi-ws `hardware-configuration.nix` (NVIDIA open, modeset, modules loaded at boot) |
+| `hardware/kyi-nb` | amd-ucode, mesa/vulkan-radeon(+lib32), power-profiles-daemon | the AMD equivalent for kyi-nb                                    |
 
 Note: The project *DankMaterialShell (DMS)* has the new name **Dux** (duxlabs).
 The package `dux-shell` contains the `dms` binary and the `dms.service` user unit.
 The greeter binary keeps the name `dms-greeter`.
 Thus the configuration shows the two names.
 
-## Install a new system (the notebook first)
+## Install a new system (kyi-nb first)
 
 1. Install a minimal Arch Linux. You can use archinstall. Obey these rules:
    - Select systemd-boot as the boot loader.
@@ -72,7 +72,7 @@ Thus the configuration shows the two names.
 4. Apply the configuration:
 
    ```sh
-   sudo decman --source ~/Source/dotfiles/notebook.py
+    sudo decman --source ~/Source/dotfiles/kyi-nb.py
    ```
 
    Note: For the runs that follow, the command `sudo decman` is sufficient.
@@ -81,7 +81,7 @@ Thus the configuration shows the two names.
 6. Optional: After the first login, do `dms-greeter sync` one time. This
    command copies your shell theme and wallpaper to the login screen.
 
-For the desktop, do the same procedure with `desktop.py`.
+For kyi-ws, do the same procedure with `kyi-ws.py`.
 
 ## Important data
 
@@ -106,12 +106,11 @@ For the desktop, do the same procedure with `desktop.py`.
   remove the `outputs_kdl` file from `modules/niri.py`.
 - sshd accepts only public keys (`files/ssh/10-key-only.conf` turns off
   password logins). `files/ssh/authorized_keys` holds the public keys that
-  may log in to the desktop as `kyi` (currently the notebook's key). To allow
-  another machine, append its public key to this file and run decman on the
-  desktop. Do not lock yourself out: add the key before you remove another.
+  may log in to kyi-ws as `kyi` (currently kyi-nb's key). To allow
+  another machine, append its public key to this file and run decman on kyi-ws. Do not lock yourself out: add the key before you remove another.
 - The file `dms/outputs.kdl` contains the monitor layout. Each machine has
-  its own version: `files/niri/outputs-desktop.kdl` and
-  `files/niri/outputs-notebook.kdl`.
+  its own version: `files/niri/outputs-kyi-ws.kdl` and
+  `files/niri/outputs-kyi-nb.kdl`.
 
 ## Intentional differences from the NixOS configuration
 
@@ -122,7 +121,7 @@ For the desktop, do the same procedure with `desktop.py`.
 - The line `spawn-at-startup "waybar"` stays in `files/niri/config.kdl` as it
   was. waybar is not installed (it was also not installed on NixOS). The
   command has no effect. You can remove the line.
-- The hostnames are `desktop` and `notebook`, not `nixos`. A new hostname
+- The hostnames are `kyi-ws` and `kyi-nb`, not `nixos`. A new hostname
   becomes effective after a restart.
 - The static network profile is applicable to all wired interfaces, not only
   to `eth0`. Arch Linux uses predictable interface names.
