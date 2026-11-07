@@ -1,11 +1,11 @@
-"""Development tools: Claude Code and opencode.
+"""Development tools: Claude Code, opencode, Mistral Vibe, Ansible, proxmoxer.
 
 Replaces the home-manager packages claude-code and programs.opencode
 (autoupdate false, model mistral/devstral-medium-latest).
 """
 
 from decman import File, Module
-from decman.plugins import aur
+from decman.plugins import aur, pacman
 
 from modules import HOME, USER, files_path
 
@@ -15,9 +15,16 @@ class DevTools(Module):
     def __init__(self):
         super().__init__(name="devtools")
 
+    @pacman.packages
+    def pacman_packages(self) -> set[str]:
+        return {
+            "ansible",
+            "python-proxmoxer",  # Proxmox API client, used by the community.proxmox Ansible modules
+        }
+
     @aur.packages
     def aur_packages(self) -> set[str]:
-        return {"claude-code", "opencode-bin"}
+        return {"claude-code", "opencode-bin", "mistral-vibe"}
 
     def files(self) -> dict[str, File]:
         return {
