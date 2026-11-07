@@ -1,6 +1,6 @@
 """Desktop applications: Signal and Bambu Studio.
 
-Replaces the home-manager packages signal-desktop and bambu-studio.
+Replaces the home-manager packages signal-desktop and bambu-studio (AUR).
 """
 
 from decman import Module
@@ -18,4 +18,4 @@ class Apps(Module):
 
     @aur.packages
     def aur_packages(self) -> set[str]:
-        return {"bambustudio-bin"}
+        return {"bambu-studio"}
