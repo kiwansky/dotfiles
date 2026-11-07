@@ -28,6 +28,7 @@ files/                     the config files / dotfiles
 | `base`              | base, linux, base-devel, sudo, … + `decman` (AUR)            | base system, `time.timeZone`, `i18n.*`, hostname, wheel sudo           |
 | `users`             | —                                                            | `users.users.kyi` (zsh shell, wheel + input groups)                    |
 | `networking`        | networkmanager                                               | `networking.networkmanager`, static `eth0` config (desktop)            |
+| `ssh`               | openssh                                                      | — (new: sshd at boot, key-only logins; the desktop gets `files/ssh/authorized_keys`) |
 | `bluetooth`         | bluez, bluez-utils                                           | `hardware.bluetooth` (powerOnBoot = BlueZ AutoEnable default)          |
 | `audio`             | pipewire(+pulse/alsa), wireplumber, playerctl                | the PipeWire stack for the niri binds (wpctl/playerctl)                |
 | `zsh`               | zsh, zsh-completions, zsh-syntax-highlighting, oh-my-zsh-git | `programs.zsh` + home-manager zsh (theme lambda, hist 10000)           |
@@ -103,6 +104,11 @@ For the desktop, do the same procedure with `desktop.py`.
   UI (for example, the dynamic theme colors or the display layout) are lost.
   If DMS must control these files: remove them from `files/niri/dms/` and
   remove the `outputs_kdl` file from `modules/niri.py`.
+- sshd accepts only public keys (`files/ssh/10-key-only.conf` turns off
+  password logins). `files/ssh/authorized_keys` holds the public keys that
+  may log in to the desktop as `kyi` (currently the notebook's key). To allow
+  another machine, append its public key to this file and run decman on the
+  desktop. Do not lock yourself out: add the key before you remove another.
 - The file `dms/outputs.kdl` contains the monitor layout. Each machine has
   its own version: `files/niri/outputs-desktop.kdl` and
   `files/niri/outputs-notebook.kdl`.

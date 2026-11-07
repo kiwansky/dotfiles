@@ -31,6 +31,7 @@ from modules.greeter import Greeter
 from modules.hardware.notebook import NotebookHardware
 from modules.networking import Networking
 from modules.niri import Niri
+from modules.ssh import Ssh
 from modules.users import make_user_manager
 from modules.zsh import Zsh
 
@@ -40,6 +41,7 @@ decman.modules += [
     Base(hostname="notebook"),
     NotebookHardware(),
     Networking(static_wired=False),
+    Ssh(),
     Bluetooth(),
     Audio(),
     Zsh(),
