@@ -32,6 +32,7 @@ from modules.hardware.kyi_nb import NotebookHardware
 from modules.networking import Networking
 from modules.niri import Niri
 from modules.ssh import Ssh
+from modules.ssh_agent import SshAgent
 from modules.users import make_user_manager
 from modules.zsh import Zsh
 
@@ -42,6 +43,7 @@ decman.modules += [
     NotebookHardware(),
     Networking(static_wired=False),
     Ssh(authorized_keys=files_path("ssh", "authorized_keys")),
+    SshAgent(),
     Bluetooth(),
     Audio(),
     Zsh(),
