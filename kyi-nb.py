@@ -41,7 +41,7 @@ decman.modules += [
     Base(hostname="kyi-nb"),
     NotebookHardware(),
     Networking(static_wired=False),
-    Ssh(),
+    Ssh(authorized_keys=files_path("ssh", "authorized_keys")),
     Bluetooth(),
     Audio(),
     Zsh(),
