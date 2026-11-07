@@ -39,7 +39,7 @@ files/                     the config files / dotfiles
 | `firefox`           | firefox                                                      | `programs.firefox` policies (Proton Pass force-installed)              |
 | `git`               | git                                                          | home-manager `programs.git` (`files/git/config`)                       |
 | `gaming`            | steam, proton-ge-custom-bin (AUR)                            | `programs.steam` + `boot.kernelModules = [hid-playstation]`            |
-| `devtools`          | ansible, python-proxmoxer, claude-code/opencode-bin/mistral-vibe (AUR) | home-manager claude-code + `programs.opencode`                         |
+| `devtools`          | ansible, python-proxmoxer, opencode-bin (AUR) | home-manager `programs.opencode`                         |
 | `apps`              | signal-desktop, bambustudio-bin (AUR)                        | home-manager signal-desktop + bambu-studio                             |
 | `hardware/desktop`  | intel-ucode, nvidia-open(+utils, lib32), egl-wayland         | the desktop `hardware-configuration.nix` (NVIDIA open, modeset, modules loaded at boot) |
 | `hardware/notebook` | amd-ucode, mesa/vulkan-radeon(+lib32), power-profiles-daemon | the AMD equivalent for the notebook                                    |

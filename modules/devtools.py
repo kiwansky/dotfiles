@@ -1,6 +1,6 @@
-"""Development tools: Claude Code, opencode, Mistral Vibe, Ansible, proxmoxer.
+"""Development tools: opencode, Ansible, proxmoxer.
 
-Replaces the home-manager packages claude-code and programs.opencode
+Replaces the home-manager package programs.opencode
 (autoupdate false, model mistral/devstral-medium-latest).
 """
 
@@ -24,7 +24,7 @@ class DevTools(Module):
 
     @aur.packages
     def aur_packages(self) -> set[str]:
-        return {"claude-code", "opencode-bin", "mistral-vibe"}
+        return {"opencode-bin"}
 
     def files(self) -> dict[str, File]:
         return {
