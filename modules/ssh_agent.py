@@ -5,6 +5,7 @@ ssh-agent.service on demand. Configures ~/.ssh/config to add keys to the
 agent on first use (AddKeysToAgent yes).
 """
 
+import decman
 from decman import File, Module
 
 from modules import HOME, USER
@@ -14,6 +15,8 @@ class SshAgent(Module):
 
     def __init__(self):
         super().__init__(name="ssh-agent")
+        # Enable user-level systemd units
+        decman.systemd.enabled_user_units.setdefault(USER, set()).update({"ssh-agent.socket"})
 
     def files(self) -> dict[str, File]:
         return {
