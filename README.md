@@ -40,7 +40,7 @@ files/                     the config files / dotfiles
 | `gaming`            | steam, proton-ge-custom-bin (AUR)                            | `programs.steam` + `boot.kernelModules = [hid-playstation]`            |
 | `devtools`          | claude-code (AUR), opencode-bin (AUR)                        | home-manager claude-code + `programs.opencode`                         |
 | `apps`              | signal-desktop, bambustudio-bin (AUR)                        | home-manager signal-desktop + bambu-studio                             |
-| `hardware/desktop`  | intel-ucode, nvidia-open(+utils, lib32), egl-wayland         | the desktop `hardware-configuration.nix` (NVIDIA open, modeset)        |
+| `hardware/desktop`  | intel-ucode, nvidia-open(+utils, lib32), egl-wayland         | the desktop `hardware-configuration.nix` (NVIDIA open, modeset, modules loaded at boot) |
 | `hardware/notebook` | amd-ucode, mesa/vulkan-radeon(+lib32), power-profiles-daemon | the AMD equivalent for the notebook                                    |
 
 Note: The project *DankMaterialShell (DMS)* has the new name **Dux** (duxlabs).
