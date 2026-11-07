@@ -17,6 +17,9 @@ if _here not in sys.path:
 import decman
 
 from modules import files_path
+
+# Enable user-level systemd units (ssh-agent.socket)
+decman.systemd.enabled_user_units.setdefault("kyi", set()).update({"ssh-agent.socket"})
 from modules.apps import Apps
 from modules.audio import Audio
 from modules.base import Base

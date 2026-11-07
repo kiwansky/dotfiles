@@ -16,9 +16,7 @@ class SshAgent(Module):
     def __init__(self):
         super().__init__(name="ssh-agent")
 
-    @systemd.user_units
-    def systemd_user_units(self) -> dict[str, dict]:
-        return {"ssh-agent.socket": {"enabled": True}}
+
 
     def files(self) -> dict[str, File]:
         return {
