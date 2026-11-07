@@ -18,4 +18,7 @@ class Apps(Module):
 
     @aur.packages
     def aur_packages(self) -> set[str]:
-        return {"bambu-studio"}
+        return {
+            "bambu-studio",
+            "orca-slicer-unstable-bin",
+        }
