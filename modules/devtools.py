@@ -24,11 +24,5 @@ class DevTools(Module):
 
     @aur.packages
     def aur_packages(self) -> set[str]:
-        return {"opencode-bin"}
+        return {"claude-code"}
 
-    def files(self) -> dict[str, File]:
-        return {
-            f"{HOME}/.config/opencode/opencode.json": File(
-                source_file=files_path("opencode", "opencode.json"), owner=USER
-            ),
-        }
