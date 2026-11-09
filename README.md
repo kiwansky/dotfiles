@@ -41,7 +41,7 @@ files/                     the config files / dotfiles
 | `gaming`            | steam, proton-ge-custom-bin (AUR)                            | `programs.steam` + `boot.kernelModules = [hid-playstation]`            |
 | `devtools`          | ansible, python-proxmoxer, opencode-bin (AUR) | home-manager `programs.opencode`                         |
 | `apps`              | signal-desktop, bambu-studio (AUR)                        | home-manager signal-desktop + bambu-studio                             |
-| `hardware/kyi_ws`  | intel-ucode, nvidia-open(+utils, lib32), egl-wayland         | the kyi-ws `hardware-configuration.nix` (NVIDIA open, modeset, modules loaded at boot) |
+| `hardware/kyi_ws`  | intel-ucode, nvidia-open(+utils, lib32), egl-wayland         | the kyi-ws `hardware-configuration.nix` (NVIDIA open, modeset, modules loaded at boot); btusb autosuspend off for the RTL8761BU dongle |
 | `hardware/kyi_nb` | amd-ucode, mesa/vulkan-radeon(+lib32), power-profiles-daemon | the AMD equivalent for kyi-nb                                    |
 
 Note: The project *DankMaterialShell (DMS)* has the new name **Dux** (duxlabs).

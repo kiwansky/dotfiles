@@ -7,6 +7,10 @@ Replaces hardware-configuration.nix of kyi-ws:
   - boot.kernelModules (set by the NixOS nvidia module) -> modules-load.d
   - hardware.graphics.enable32Bit       -> lib32-nvidia-utils (multilib)
 
+Also carries the quirk for the Realtek RTL8761BU USB Bluetooth dongle
+(0bda:8771): btusb autosuspend is disabled via modprobe.d, see
+files/modprobe/btusb.conf.
+
 nvidia-open is prebuilt for the stock `linux` kernel used in the base
 module. Filesystems/initrd are handled by the Arch installation itself.
 """
@@ -36,6 +40,12 @@ class DesktopHardware(Module):
         return {
             "/etc/modprobe.d/nvidia-modeset.conf": File(
                 source_file=files_path("modprobe", "nvidia-modeset.conf")
+            ),
+            # The RTL8761BU Bluetooth dongle hangs after USB autosuspend and
+            # gets reset by the kernel, killing scans. Keep it awake.
+            # Takes effect when btusb is next loaded (reboot or replug).
+            "/etc/modprobe.d/btusb.conf": File(
+                source_file=files_path("modprobe", "btusb.conf")
             ),
             # Load the NVIDIA modules in systemd-modules-load (sysinit.target)
             # instead of leaving it to udev. greetd starts after sysinit.target,
